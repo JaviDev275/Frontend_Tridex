@@ -4,10 +4,11 @@ import SearchBar from '../../components/search/SearchBar';
 import MenuList from '../../components/MenuList/MenuList';
 import styles from './MainPage.module.css';
 import Table from './components/Table';
+import Button from '../../components/buttons/Button';
 
 export default function MainPage() {
 
-  const [data, setData] = useState([
+  const [data] = useState([
     {
       name: "John Doe",
       age: 28,
@@ -732,32 +733,27 @@ export default function MainPage() {
 
   return (
     <div className={styles.MainContainer}>
-      <nav className={styles.nav}>
-      <SearchBar
-        placeholder="Buscar persona..."
-      />
-      </nav>
+        <nav className={styles.nav}>
+          <SearchBar
+            placeholder="Buscar persona..."
+          />
+        </nav>
       <main className={styles.MainContent}>
         <MenuList />
-        <table className={styles.table}>
-          <Table data={data} />
-        </table>   
+        <div className={styles.Sectionbuttons}>
+          <table className={styles.table}>
+            <Table data={data} />
+          </table>
+          <section className={styles.buttons}>
+            <Button
+              title='Descargar archivo'
+            />
+            <Button
+              title='Agregar persona'
+            />
+          </section>
+        </div>
       </main>
-
-      <button onClick={() => setData([
-        {
-          product: "Laptop",
-          price: "$1200",
-          stock: "25 units",
-        },
-        {
-          product: "Smartphone",
-          price: "$800",
-          stock: "40 units",
-        },
-      ])}>
-        Cambiar Datos
-      </button>
     </div>
   )
 }

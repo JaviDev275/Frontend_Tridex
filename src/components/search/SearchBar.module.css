@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     width: 100%; /* Adaptable al contenedor */
-    max-width: 400px; /* Ancho máximo */
+    max-width: 500px; /* Ancho máximo */
     height: 48px; /* Altura fija */
     background-color: white;
     border-radius: 8px;
