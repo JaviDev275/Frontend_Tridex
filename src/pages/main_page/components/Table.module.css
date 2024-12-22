@@ -22,12 +22,6 @@
     transition: background-color 0.2s ease;
 }
 
-.table td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .pagination {
     display: flex;
     justify-content: space-between;
@@ -39,23 +33,60 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    /* Espacio entre el texto y el dropdown */
 }
 
-.pageInfo {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.select {
-    padding: 4px;
-    font-size: 14px;
-    border-radius: 4px;
+.customDropdown {
+    position: relative;
+    cursor: pointer;
+    padding: 4px 16px;
     border: 1px solid #b9b9b9;
-    background-color: #fff;
-    max-height: 200px;
-    overflow-y: auto;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
     font-weight: 500;
+    display: inline-block;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
+.customDropdown.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.dropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 150px;
+    /* Muestra solo 5 elementos con scroll */
+    overflow-y: auto;
+    border: 1px solid #b9b9b9;
+    border-top: none;
+    background-color: white;
+    z-index: 10;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdownList li {
+    padding: 8px ;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdownList li:hover {
+    background-color: #f1f1f1;
+}
+
+.activeDropdownItem {
+    background-color: #d6d6d6;
 }
 
 .navigationButtons {
@@ -67,7 +98,7 @@
 .navButton {
     background-color: white;
     font-size: 14px;
-    padding:4px 8px; /* Adjusted padding to match currentPage */
+    padding: 4px 8px;
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -94,13 +125,13 @@
 }
 
 .currentPage {
-    font-size: 14px; /* Adjusted font size to match navButton */
-    font-weight:  500;
-    padding: 4px 8px; /* Adjusted padding to match navButton */
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 8px;
     border: 1px solid #b9b9b9;
     border-left: none;
     border-right: none;
-    height: auto; /* Ensure it matches the height of navButton */
+    height: auto;
     display: flex;
     align-items: center;
 }
