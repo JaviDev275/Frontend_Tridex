@@ -1,0 +1,43 @@
+.input {
+    width: 340px;
+    height: 40px; /* Tamaño estándar */
+    font-size: 16px; /* Mantén el tamaño original */
+    border: none;
+    border-bottom: 2px solid #d4d4d8;
+    outline: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+    line-height: 1; /* Normalizamos la altura de línea */
+    vertical-align: middle; /* Aseguramos alineación vertical */
+    letter-spacing: 0.05em; /* Opcional: Suaviza visualmente las diferencias entre caracteres */
+    transition: border-color 0.3s ease;
+
+  }
+  
+  .input::placeholder {
+    color: #10181c;
+    font-weight: 500;
+  }
+  
+  .input:focus {
+    border-bottom-color: #007bff
+    ; /* Azul cuando está en focus */
+  }
+  
+  .title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #007bff
+    ;
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .inputWrapper {
+    position: relative;
+  }

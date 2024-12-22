@@ -1,0 +1,41 @@
+.SearchBar {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Adaptable al contenedor */
+    max-width: 400px; /* Ancho máximo */
+    height: 48px; /* Altura fija */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+    padding: 0 16px; /* Espaciado interno */
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: text; /* Hace que el contenedor completo sea clicable */
+}
+
+.Icon {
+    font-size: 24px;
+    color: #000000;
+    margin-right: 8px; /* Espaciado entre el ícono y el input */
+}
+
+.Input {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 500;
+    background: transparent; /* Fondo transparente para evitar interferencias */
+    width: 100%;
+}
+
+.Input::placeholder {
+    color: #000000; /* Placeholder en color gris */
+}
+
+/* Responsividad */
+@media (max-width: 400px) {
+    .SearchBar {
+        max-width: 90%; /* Ocupa el 90% del ancho en pantallas pequeñas */
+    }
+}
