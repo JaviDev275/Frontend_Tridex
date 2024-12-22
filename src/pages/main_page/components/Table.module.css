@@ -1,8 +1,12 @@
+.tableContainer{
+flex: 1;
+}
+
 .table {
     width: 100%;
     max-width: 100%;
     border-collapse: collapse;
-    margin: 16px 0;
+    
 }
 
 .table th,

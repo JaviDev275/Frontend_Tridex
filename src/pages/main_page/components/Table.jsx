@@ -59,7 +59,7 @@ const Table = ({ data }) => {
   const currentData = data.slice(startIndex, endIndex);
 
   return (
-    <div>
+    <div className={styles.tableContainer}>
       <table className={styles.table}>
         <thead>
           <tr>
