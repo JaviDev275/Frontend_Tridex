@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styles from './Input.module.css';
 
-export default function Input({ title, placeholder, isPassword = false }) {
+export default function Input({ title, placeholder, isPassword = false, onChange, value, isRequired = false, inputType = 'text' }) {
   const [passwordValue, setPasswordValue] = useState(''); // Contraseña real
   const [displayValue, setDisplayValue] = useState(''); // Representación visual
   const timeoutRef = useRef(null);
@@ -46,10 +46,12 @@ export default function Input({ title, placeholder, isPassword = false }) {
       <div className={styles.inputWrapper}>
         <input
           className={styles.input}
-          type="text"
-          value={displayValue}
+          type={inputType}
+          value={value}
           placeholder={placeholder}
-          onChange={handleInputChange}
+          onChange={onChange}
+          required={isRequired}
+          
         />
       </div>
     </div>

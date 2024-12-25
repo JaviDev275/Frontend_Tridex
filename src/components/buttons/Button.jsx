@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 
-export default function Button({ title }) {
+export default function Button({ title, disable  }) {
   return (
-    <button className={styles.button}>
-      {title}
-    </button>
+    <input value={title} type='submit' className={styles.button} disabled={disable}>
+    </input>
   );
 }
 
