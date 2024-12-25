@@ -1,15 +1,19 @@
 import './styles/global.css';
-import AcuseDeEntrega from './pdf/AcuseDeEntrega';
+//import AppRouter from './routes/types';
+
+import PrestamoEquipo from './pdf/PrestamoEquipo';
 import { PDFViewer } from '@react-pdf/renderer';
 
 function App() {
+
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
-      <PDFViewer style={{ height: '100%', width: '100%' }}>
-        <AcuseDeEntrega />
-      </PDFViewer>
-    </div>
-  );
+//<AppRouter/>
+    <PDFViewer  style={{ width: '100%', height: '100vh' }}>
+      <PrestamoEquipo />
+    </PDFViewer>
+  )
 }
 
-export default App;
+export default App
+
+

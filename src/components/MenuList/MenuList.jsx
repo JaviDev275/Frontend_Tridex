@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './MenuList.module.css';
 import TridexLogo from '../../assets/TridexLogoS.svg';
 
-export default function MenuList() {
-  const [activeButton, setActiveButton] = useState(null);
+export default function MenuList({ onMenuSelect }) {
+  // Inicializa el primer botón como activo
+  const [activeButton, setActiveButton] = useState(0);
 
   const handleButtonClick = (index) => {
     setActiveButton(index);
+    onMenuSelect(index);
   };
 
   const menuItems = [
@@ -38,3 +41,7 @@ export default function MenuList() {
     </aside>
   );
 }
+
+MenuList.propTypes = {
+  onMenuSelect: PropTypes.func.isRequired,
+};
