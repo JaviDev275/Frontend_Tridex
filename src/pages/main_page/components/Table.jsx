@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import styles from "./Table.module.css";
-import { IoChevronDownSharp } from "react-icons/io5";
+import { IoChevronDownSharp} from "react-icons/io5";
+import { FcDownload } from "react-icons/fc";
 
 
-const Table = ({ data }) => {
+
+const Table = ({ data, showDownloadColumn, onClick }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -66,6 +68,7 @@ const Table = ({ data }) => {
             {Object.keys(data[0]).map((header, index) => (
               <th key={index}>{header}</th>
             ))}
+            {showDownloadColumn && <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -74,6 +77,16 @@ const Table = ({ data }) => {
               {Object.keys(row).map((header, colIndex) => (
                 <td key={colIndex}>{row[header]}</td>
               ))}
+              {showDownloadColumn && (
+                <td className={styles.downloadCell}>
+                  <button
+                    className={styles.downloadButton}
+                    onClick={onClick}
+                  >
+                    <FcDownload />
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
@@ -137,6 +150,12 @@ const Table = ({ data }) => {
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  showDownloadColumn: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+Table.defaultProps = {
+  showDownloadColumn: false,
 };
 
 export default Table;

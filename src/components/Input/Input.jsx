@@ -1,5 +1,7 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import styles from './Input.module.css';
+import PropTypes from 'prop-types';
+
 
 export default function Input({ title, placeholder, isPassword = false }) {
   const [passwordValue, setPasswordValue] = useState(''); // Contraseña real
@@ -40,6 +42,8 @@ export default function Input({ title, placeholder, isPassword = false }) {
     }
   };
 
+
+  
   return (
     <div className={styles.inputContainer}>
       <label className={styles.title}>{title}</label>
@@ -55,3 +59,9 @@ export default function Input({ title, placeholder, isPassword = false }) {
     </div>
   );
 }
+
+Input.propTypes = {
+  title: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  isPassword: PropTypes.bool,
+};

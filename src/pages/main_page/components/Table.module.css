@@ -1,5 +1,6 @@
 .tableContainer{
 flex: 1;
+height: 100px;
 }
 
 .table {
@@ -138,4 +139,19 @@ flex: 1;
     height: auto;
     display: flex;
     align-items: center;
+}
+
+.downloadCell  button{
+    margin: auto;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #2e93ff;
+
+}
+
+.downloadCell{
+    width: 5%;
 }
