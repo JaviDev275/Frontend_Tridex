@@ -19,6 +19,8 @@ export default function MenuList({ onMenuSelect }) {
     "Calendario de Mantto preventivo",
     "Orden de servicio",
     "Solicitud de préstamo",
+    "Clientes",
+    "Equipos",
   ];
 
   return (
@@ -27,7 +29,10 @@ export default function MenuList({ onMenuSelect }) {
       <nav>
         <ul className={styles.menu}>
           {menuItems.map((item, index) => (
+            <>  
+            {index === 6 && <hr className={styles.divider} />}
             <li key={index}>
+              
               <button
                 className={`${styles.button} ${activeButton === index ? styles.active : ''}`}
                 onClick={() => handleButtonClick(index)}
@@ -35,6 +40,7 @@ export default function MenuList({ onMenuSelect }) {
                 <p>{item}</p>
               </button>
             </li>
+            </>
           ))}
         </ul>
       </nav>
