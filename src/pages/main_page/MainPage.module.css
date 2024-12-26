@@ -16,7 +16,7 @@
     width: 100%;
 }
 
-.table{
+.table {
     background-color: white;
     display: flex;
     padding: 48px;
@@ -27,21 +27,21 @@
     border-radius: 8px;
 }
 
-.MainContent{
+.MainContent {
     display: flex;
     justify-content: center;
     gap: 48px;
     width: 100%;
 }
 
-.Sectionbuttons{
+.Sectionbuttons {
     display: flex;
     flex-direction: column;
     justify-content: end;
     width: 70%;
 }
 
-.buttons{
+.buttons {
     display: flex;
     width: 100%;
     justify-content: end;

@@ -1,5 +1,5 @@
 // Función 1
-export const getAcuseDemo = () => {
+export const getLoadingState = () => {
     return [
         {
             name: "Cargando información...",
@@ -9,7 +9,7 @@ export const getAcuseDemo = () => {
         }
     ];
 };
-
+/*
 // Función 2
 export const getAcuseDeEntrega = () => {
     return [
@@ -99,3 +99,4 @@ export const getSolicitudPrestamo = () => {
         },
     ];
 };
+*/

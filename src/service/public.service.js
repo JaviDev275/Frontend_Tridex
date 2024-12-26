@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = 'https://vhv8fh3g-3000.usw3.devtunnels.ms'
+const API_URL = 'http://localhost:3000'
 
 export const loginRequest = async (user) => {
 
@@ -14,6 +14,34 @@ export const loginRequest = async (user) => {
             throw new Error('Usuario no encontrado')
         }
         console.error(error.message)
+    }
+}
+
+const ClientesUrl = 'clientes'
+
+export const getClientesRequest = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_URL}/${ClientesUrl}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+const EquiposUrl = 'equipos'
+
+export const getEquiposRequest = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_URL}/${EquiposUrl}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
     }
 }
 
