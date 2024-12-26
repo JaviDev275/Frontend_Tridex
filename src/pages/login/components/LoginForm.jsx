@@ -3,10 +3,6 @@ import TridexLogo from '../../../assets/TridexLogo.svg';
 import Button from '../../../components/buttons/Button';
 import Input from '../../../components/Input/input';
 
-import { useNavigate } from 'react-router-dom';
-
-
-
 import { loginRequest } from '../../../service/public.service';
 import { useState } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -33,9 +29,9 @@ export default function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { usuario } = await loginRequest(userLogin);
+      const response = await loginRequest(userLogin);
       setTimeout(() => { 
-        login(usuario);
+        login(response);
         setIsLoading(false); 
       }, 2000);
     } catch (error) {

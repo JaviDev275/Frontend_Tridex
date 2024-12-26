@@ -11,4 +11,5 @@ export default function Button({ title, disable  }) {
 Button.propTypes = {
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  disable: PropTypes.bool
 };
