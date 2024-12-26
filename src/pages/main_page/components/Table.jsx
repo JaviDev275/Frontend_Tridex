@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
 import styles from "./Table.module.css";
-import { IoChevronDownSharp } from "react-icons/io5";
+import { IoChevronDownSharp} from "react-icons/io5";
 import { FcDownload } from "react-icons/fc";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import AcuseDeEntrega from "../../../pdf/AcuseDeEntrega";
@@ -81,12 +81,12 @@ const Table = ({ data, showDownloadColumn, onClick }) => {
               ))}
               {showDownloadColumn && (
                 <td className={styles.downloadCell}>
-                  <PDFDownloadLink document={<AcuseDeEntrega />} fileName="AcuseDeEntrga.pdf">
-                    {
-                      ({ loading, url, error, blob }) => loading ?
-                        (<button><FcDownload /></button>) : (<button><FcDownload /></button>)
-                    }
-                  </PDFDownloadLink>
+                    <PDFDownloadLink document={<AcuseDeEntrega/>} fileName="AcuseDeEntrga.pdf">
+                      {
+                        ({loading, url, error, blob}) => loading ? 
+                        (<button>Descargar</button>) : (<button><FcDownload /></button>)
+                      }
+                    </PDFDownloadLink>
                 </td>
               )}
             </tr>
@@ -98,8 +98,9 @@ const Table = ({ data, showDownloadColumn, onClick }) => {
         <div className={styles.pageSelectContainer}>
           <div
             ref={dropdownRef}
-            className={`${styles.customDropdown} ${dropdownOpen ? styles.open : ""
-              }`}
+            className={`${styles.customDropdown} ${
+              dropdownOpen ? styles.open : ""
+            }`}
             onClick={toggleDropdown}
           >
             {currentPage}
