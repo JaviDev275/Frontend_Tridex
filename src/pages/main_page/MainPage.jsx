@@ -16,6 +16,8 @@ import AcuseDemoRegisterForm from './components/RegisterForms/AcuseDemo';
 import AcuseEntregaEquipoRegisterForm from './components/RegisterForms/AcuseEntregaEquipo';
 import AcuseRecibidoDemo from './components/RegisterForms/AcuseRecibidoDemo';
 import CalendarioManttoPreventivo from './components/RegisterForms/CalendarioManttoPreventivo';
+import OrdenDeServicio from './components/RegisterForms/OrdenServicio';
+import ClientesRegisterForm from './components/RegisterForms/Clientes';
 
 export default function MainPage() {
 
@@ -74,7 +76,7 @@ export default function MainPage() {
         case 4:
           setData(getLoadingState());
           result = await getOrdenServicioRequest();
-          setCurrentForm(() => reciboDemoRegisterForm);
+          setCurrentForm(() => OrdenDeServicio);
           break;
         case 5:
           setData(getLoadingState());
@@ -84,7 +86,7 @@ export default function MainPage() {
         case 6:
           setData(getLoadingState());
           result = await getClientesRequest();
-          setCurrentForm(() => reciboDemoRegisterForm);
+          setCurrentForm(() => ClientesRegisterForm);
           break;
         case 7:
           setData(getLoadingState());
