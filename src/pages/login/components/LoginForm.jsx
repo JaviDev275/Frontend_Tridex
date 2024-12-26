@@ -5,7 +5,7 @@ import Input from '../../../components/Input/input';
 import { loginRequest } from '../../../service/public.service';
 import { useState } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
-import ButtonSubmit from '../../../components/buttons/ButtonSubmit';
+import Button from '../../../components/buttons/Button';
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -29,6 +29,7 @@ export default function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
     try {
+      console.log(userLogin)
       const response = await loginRequest(userLogin);
       login(response); // Maneja la redirección o lógica posterior al login aquí.
       setIsLoading(false);
