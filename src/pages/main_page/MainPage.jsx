@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchBar from '../../components/search/SearchBar';
 import MenuList from '../../components/MenuList/MenuList';
 import styles from './MainPage.module.css';
@@ -10,12 +10,8 @@ import Input from '../../components/Input/input';
 // Importa las funciones que traen los datos
 import {
   getAcuseDemo,
-  getAcuseDeEntrega,
-  getReciboDemo,
-  getManttoPreventivo,
-  getOrdenServicio,
-  getSolicitudPrestamo,
 } from '../../data/data'; // Ajusta la ruta según tu estructura
+import { getAcuseDeEntregaRequest, getAcuseDemoRequest, getManttoPreventivoRequest, getOrdenServicioRequest, getReciboDemoRequest, getSolicitudPrestamoRequest, } from '../../service/public.service';
 
 export default function MainPage() {
   const [data, setData] = useState(getAcuseDemo()); 
@@ -27,30 +23,48 @@ export default function MainPage() {
   const openTableModal = () => setIsModalTableOpen(true);
   const closeTableModal = () => setIsModalTableOpen(false);
 
-  // Función para actualizar los datos según el índice del menú
-  const handleMenuSelect = (menuIndex) => {
-    switch (menuIndex) {
-      case 0:
-        setData(getAcuseDemo());
-        break;
-      case 1:
-        setData(getAcuseDeEntrega());
-        break;
-      case 2:
-        setData(getReciboDemo());
-        break;
-      case 3:
-        setData(getManttoPreventivo());
-        break;
-      case 4:
-        setData(getOrdenServicio());
-        break;
-      case 5:
-        setData(getSolicitudPrestamo());
-        break;
-      default:
-        setData([]);
-    }
+ useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getAcuseDemoRequest();
+        setData(result);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    fetchData();
+  }, []);
+  
+
+  const handleMenuSelect = async (menuIndex) => {
+    try {
+      let result
+      switch (menuIndex) {
+        case 0:
+          result = await getAcuseDemoRequest();
+          break;
+        case 1:
+          result = await getAcuseDeEntregaRequest();
+          break;
+        case 2:
+          result = await getReciboDemoRequest();
+          break;
+        case 3:
+          result = await getManttoPreventivoRequest();
+          break;
+        case 4:
+          result = await getOrdenServicioRequest();
+          break;
+        case 5:
+          result = await getSolicitudPrestamoRequest();
+          break;
+        default:
+          setData([]);
+      } 
+      setData(result);
+    } catch (err) {
+      console.log(err.message);
+    } 
   };
 
   return (

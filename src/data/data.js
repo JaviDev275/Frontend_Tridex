@@ -2,65 +2,11 @@
 export const getAcuseDemo = () => {
     return [
         {
-            name: "John Doe",
-            age: 28,
-            email: "john.doe@example.com",
-            role: "Developer",
-        },
-        {
-            name: "Jane Smith",
-            age: 32,
-            email: "jane.smith@example.com",
-            role: "Designer",
-        },
-        {
-            name: "John Doe",
-            age: 28,
-            email: "john.doe@example.com",
-            role: "Developer",
-        },
-        {
-            name: "Jane Smith",
-            age: 32,
-            email: "jane.smith@example.com",
-            role: "Designer",
-        },
-        {
-            name: "John Doe",
-            age: 28,
-            email: "john.doe@example.com",
-            role: "Developer",
-        },
-        {
-            name: "Jane Smith",
-            age: 32,
-            email: "jane.smith@example.com",
-            role: "Designer",
-        },
-        {
-            name: "John Doe",
-            age: 28,
-            email: "john.doe@example.com",
-            role: "Developer",
-        },
-        {
-            name: "Jane Smith",
-            age: 32,
-            email: "jane.smith@example.com",
-            role: "Designer",
-        },
-        {
-            name: "John Doe",
-            age: 28,
-            email: "john.doe@example.com",
-            role: "Developer",
-        },
-        {
-            name: "Jane Smith",
-            age: 32,
-            email: "jane.smith@example.com",
-            role: "Designer",
-        },
+            name: "Cargando información...",
+            age: null,
+            email: "",
+            role: "",
+        }
     ];
 };
 
