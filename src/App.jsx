@@ -1,16 +1,15 @@
 import OrdenDeServicio from './pdf/OrdenDeServicio';
 import './styles/global.css';
-// import AppRouter from './routes/types';
 
-import { PDFViewer } from '@react-pdf/renderer';
+import { AuthProvider } from './contexts/AuthContext';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
 
-return (
-// <AppRouter/>
-<PDFViewer  style={{ width: '100%', height: '100vh' }}>
-  <OrdenDeServicio></OrdenDeServicio>
-</PDFViewer>
+  return (
+    <AuthProvider>
+      <AppRoutes/>
+    </AuthProvider>
   )
 }
 
