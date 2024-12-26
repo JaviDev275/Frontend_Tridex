@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Select from "../../../../components/Input/Select";
-import { getClientesRequest } from "../../../../service/public.service";
+import { getClientesRequest, postAcuseDemoRequest } from "../../../../service/public.service";
+import Button from "../../../../components/buttons/Button";
 
 const AcuseDemoRegisterForm = () => {
 
@@ -19,6 +20,16 @@ const AcuseDemoRegisterForm = () => {
         fetchData();
     }, []);
 
+    const postAcuseDemo = async () => {
+        try {
+            await postAcuseDemoRequest({ "Cliente": formInputs.cliente });
+            console.log("Acuse de entrega de equipo demo registrado");
+        }
+        catch (error) {
+            console.log(error.msg);
+        }
+    }
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -36,7 +47,7 @@ const AcuseDemoRegisterForm = () => {
                 placeholder="Seleccionar cliente"
                 label="Clientes"
             />
-
+            <Button onClick={postAcuseDemo} title="Aceptar" />
         </>
     );
 };

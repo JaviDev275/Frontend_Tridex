@@ -3,7 +3,7 @@ import styles from './Input.module.css';
 import PropTypes from 'prop-types';
 
 
-export default function Input({ title, placeholder, isPassword = false, onChange, value, isRequired = false, inputType = 'text' }) {
+export default function Input({ title, placeholder, isPassword = false, onChange, value, isRequired = false, inputType = 'text', maxLength }) {
   const [passwordValue, setPasswordValue] = useState(''); // Contraseña real
   const [displayValue, setDisplayValue] = useState(''); // Representación visual
   const timeoutRef = useRef(null);
@@ -43,7 +43,7 @@ export default function Input({ title, placeholder, isPassword = false, onChange
   };
 
 
-  
+
   return (
     <div className={styles.inputContainer}>
       <label className={styles.title}>{title}</label>
@@ -55,7 +55,7 @@ export default function Input({ title, placeholder, isPassword = false, onChange
           placeholder={placeholder}
           onChange={onChange}
           required={isRequired}
-          
+          maxLength={maxLength}
         />
       </div>
     </div>

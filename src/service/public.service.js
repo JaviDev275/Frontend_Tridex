@@ -31,6 +31,16 @@ export const getClientesRequest = async () => {
     }
 }
 
+export const postClientesRequest = async (cliente) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${ClientesUrl}`, cliente, { headers: { 'Authorization': `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 const EquiposUrl = 'equipos'
 
 export const getEquiposRequest = async () => {
@@ -39,6 +49,16 @@ export const getEquiposRequest = async () => {
         const response = await axios.get(`${API_URL}/${EquiposUrl}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export const postEquiposRequest = async (equipo) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${EquiposUrl}`, equipo, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         console.error(error.message);
@@ -54,6 +74,18 @@ export const getAcuseDemoRequest = async () => {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export const postAcuseDemoRequest = async (acuseDemo) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${AcusesDemoUrl}`, acuseDemo, {
+            headers: { 'Authorization': `Bearer ${token}` }
         });
         return response.data;
     } catch (error) {
@@ -77,6 +109,18 @@ export const getAcuseDeEntregaRequest = async () => {
     }
 }
 
+export const postAcuseDeEntregaRequest = async (acuseDeEntrega) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${AcusesDeEntregaUrl}`, acuseDeEntrega, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 const ReciboDemo = 'acuse-de-recibido-demo'
 
 export const getReciboDemoRequest = async () => {
@@ -86,6 +130,18 @@ export const getReciboDemoRequest = async () => {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export const postReciboDemoRequest = async (reciboDemo) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${ReciboDemo}`, reciboDemo, {
+            headers: { 'Authorization': `Bearer ${token}` }
         });
         return response.data;
     } catch (error) {
@@ -109,6 +165,18 @@ export const getManttoPreventivoRequest = async () => {
     }
 }
 
+export const postManttoPreventivoRequest = async (manttoPreventivo) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${ManttoPreventivo}`, manttoPreventivo, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 const SolicitudPrestamo = 'solicitud-de-prestamo-de-equipo-medico'
 
 export const getSolicitudPrestamoRequest = async () => {
@@ -125,6 +193,18 @@ export const getSolicitudPrestamoRequest = async () => {
     }
 }
 
+export const postSolicitudPrestamoRequest = async (solicitudPrestamo) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${SolicitudPrestamo}`, solicitudPrestamo, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 const OrdenServicio = 'orden-de-servicio'
 
 export const getOrdenServicioRequest = async () => {
@@ -134,6 +214,18 @@ export const getOrdenServicioRequest = async () => {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export const postOrdenServicioRequest = async (ordenServicio) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/${OrdenServicio}`, ordenServicio, {
+            headers: { 'Authorization': `Bearer ${token}` }
         });
         return response.data;
     } catch (error) {
