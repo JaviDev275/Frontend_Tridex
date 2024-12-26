@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 
-export default function Button({ title, onClick, }) {
+export default function ButtonSubmit({ title, disable=false  }) {
   return (
-    <button className={styles.button} onClick={onClick}>
-      {title}
-    </button>
+    <input value={title} type='submit' className={styles.button} disabled={disable}>
+    </input>
   );
 }
 
-Button.propTypes = {
+ButtonSubmit.propTypes = {
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   disable: PropTypes.bool

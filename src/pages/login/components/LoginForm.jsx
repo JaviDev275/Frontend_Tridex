@@ -1,11 +1,11 @@
 import styles from './LoginForm.module.css';
 import TridexLogo from '../../../assets/TridexLogo.svg';
-import Button from '../../../components/buttons/Button';
 import Input from '../../../components/Input/input';
 
 import { loginRequest } from '../../../service/public.service';
 import { useState } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
+import ButtonSubmit from '../../../components/buttons/ButtonSubmit';
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -63,7 +63,7 @@ export default function LoginForm() {
                 inputType='password'
                 />  
             </div>
-            <Button  title={isLoading ? 'Iniciando' : "Iniciar sesión"} disable={isLoading} />
+            <ButtonSubmit  title={isLoading ? 'Iniciando' : "Iniciar sesión"} disable={isLoading} />
 
             
         </fieldset>
