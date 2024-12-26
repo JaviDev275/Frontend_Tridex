@@ -15,6 +15,7 @@ import { getAcuseDeEntregaRequest, getAcuseDemoRequest, getClientesRequest, getE
 import Select from '../../components/Input/Select';
 
 export default function MainPage() {
+
   const [data, setData] = useState(getLoadingState());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clientesForSelectInput, setClientesForSelectInput] = useState([]);
@@ -224,7 +225,10 @@ export default function MainPage() {
         <MenuList onMenuSelect={handleMenuSelect} />
         <div className={styles.Sectionbuttons}>
           <table className={styles.table}>
-            <Table onClick={openTableModal} showDownloadColumn={true} data={data} />
+            <Table
+              onClick={openTableModal}
+              showDownloadColumn={true}
+              data={data} />
           </table>
           <section className={styles.buttons}>
             <Button onClick={openModal} title="Insertar datos" />
