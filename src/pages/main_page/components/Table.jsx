@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./Table.module.css";
 import { IoChevronDownSharp} from "react-icons/io5";
 import { FcDownload } from "react-icons/fc";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import AcuseDeEntrega from "../../../pdf/AcuseDeEntrega";
 
 
 
@@ -79,12 +81,12 @@ const Table = ({ data, showDownloadColumn, onClick }) => {
               ))}
               {showDownloadColumn && (
                 <td className={styles.downloadCell}>
-                  <button
-                    className={styles.downloadButton}
-                    onClick={onClick}
-                  >
-                    <FcDownload />
-                  </button>
+                    <PDFDownloadLink document={<AcuseDeEntrega/>} fileName="AcuseDeEntrga.pdf">
+                      {
+                        ({loading, url, error, blob}) => loading ? 
+                        (<button>Descargar</button>) : (<button><FcDownload /></button>)
+                      }
+                    </PDFDownloadLink>
                 </td>
               )}
             </tr>

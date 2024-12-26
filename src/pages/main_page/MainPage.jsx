@@ -14,7 +14,7 @@ import {
 import { getAcuseDeEntregaRequest, getAcuseDemoRequest, getManttoPreventivoRequest, getOrdenServicioRequest, getReciboDemoRequest, getSolicitudPrestamoRequest, } from '../../service/public.service';
 
 export default function MainPage() {
-  const [data, setData] = useState(getAcuseDemo()); 
+  const [data, setData] = useState(getAcuseDemo());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -23,7 +23,7 @@ export default function MainPage() {
   const openTableModal = () => setIsModalTableOpen(true);
   const closeTableModal = () => setIsModalTableOpen(false);
 
- useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await getAcuseDemoRequest();
@@ -34,7 +34,7 @@ export default function MainPage() {
     };
     fetchData();
   }, []);
-  
+
 
   const handleMenuSelect = async (menuIndex) => {
     try {
@@ -66,11 +66,11 @@ export default function MainPage() {
           break;
         default:
           setData([]);
-      } 
+      }
       setData(result);
     } catch (err) {
       console.log(err.message);
-    } 
+    }
   };
 
   return (
@@ -95,7 +95,10 @@ export default function MainPage() {
         <MenuList onMenuSelect={handleMenuSelect} />
         <div className={styles.Sectionbuttons}>
           <table className={styles.table}>
-            <Table onClick={openTableModal} showDownloadColumn={true} data={data} />
+            <Table
+              onClick={openTableModal}
+              showDownloadColumn={true}
+              data={data} />
           </table>
           <section className={styles.buttons}>
             <Button onClick={openModal} title="Insertar datos" />
