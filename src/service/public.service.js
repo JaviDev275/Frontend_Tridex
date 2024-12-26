@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = 'http://localhost:3000'
+const API_URL = 'https://vhv8fh3g-3000.usw3.devtunnels.ms'
 
 export const loginRequest = async (user) => {
 

@@ -41,21 +41,27 @@ export default function MainPage() {
       let result
       switch (menuIndex) {
         case 0:
+          setData(getAcuseDemo());
           result = await getAcuseDemoRequest();
           break;
         case 1:
+          setData(getAcuseDemo());
           result = await getAcuseDeEntregaRequest();
           break;
         case 2:
+          setData(getAcuseDemo());
           result = await getReciboDemoRequest();
           break;
         case 3:
+          setData(getAcuseDemo());
           result = await getManttoPreventivoRequest();
           break;
         case 4:
+          setData(getAcuseDemo());
           result = await getOrdenServicioRequest();
           break;
         case 5:
+          setData(getAcuseDemo());
           result = await getSolicitudPrestamoRequest();
           break;
         default:
