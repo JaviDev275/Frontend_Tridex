@@ -29,6 +29,7 @@ export default function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
     try {
+      console.log(userLogin)
       const response = await loginRequest(userLogin);
       login(response); // Maneja la redirección o lógica posterior al login aquí.
       setIsLoading(false);
