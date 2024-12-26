@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     color: '#000', 
   },
   folioButton:{
-    top: 900,              // Distancia desde la parte superior
-    left: 384,             // Distancia desde el lado izquierdo
+    top: 708,              // Distancia desde la parte superior
+    left: 100,             // Distancia desde el lado izquierdo
     fontSize: 10,         // Tamaño de la fuente
     fontWeight: 'light',   // Negrita
     color: '#000', 
@@ -27,6 +27,27 @@ const styles = StyleSheet.create({
     position: 'absolute', // Posición absoluta
     zIndex:-1,
   },
+  folioDateDay:{
+    top: 698,              // Distancia desde la parte superior
+    left: 350,             // Distancia desde el lado izquierdo
+    fontSize: 10,         // Tamaño de la fuente
+    fontWeight: 'light',   // Negrita
+    color: '#000', 
+  },
+  folioDateMonth:{
+    top: 687,              // Distancia desde la parte superior
+    left: 390,             // Distancia desde el lado izquierdo
+    fontSize: 10,         // Tamaño de la fuente
+    fontWeight: 'light',   // Negrita
+    color: '#000', 
+  },
+  folioDateYear:{
+    top: 676,              // Distancia desde la parte superior
+    left: 436,             // Distancia desde el lado izquierdo
+    fontSize: 10,         // Tamaño de la fuente
+    fontWeight: 'light',   // Negrita
+    color: '#000', 
+  },
 });
 
 export default function PrestamoEquipo() {
@@ -35,7 +56,10 @@ export default function PrestamoEquipo() {
       {/* Primera página con texto y primera imagen */}
       <Page size="A4" style={styles.page}>
         <Text style={styles.folioTop}>2024-001</Text>
-        <Text style={styles.folioButton}>2024-002</Text>
+        <Text style={styles.folioButton}>2024-001</Text>
+        <Text style={styles.folioDateDay}>12</Text>
+        <Text style={styles.folioDateMonth}>11</Text>
+        <Text style={styles.folioDateYear}>24</Text>
         <Image style={styles.image} src={ImageSoliOne} />
       </Page>
 
