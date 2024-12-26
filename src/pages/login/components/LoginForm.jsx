@@ -64,7 +64,7 @@ export default function LoginForm() {
               value={userLogin.contrasena}
               isRequired={true}
               inputType='password'
-            />
+            />  
           </div>
           <Button title={isLoading ? 'Iniciando...' : 'Iniciar sesión'} disable={isLoading} />
 
