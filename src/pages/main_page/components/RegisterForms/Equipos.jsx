@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Input from "../../../../components/Input/input";
-import { postClientesRequest } from "../../../../service/public.service";
+import { postEquiposRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
 const EquiposRegisterForm = () => {
@@ -15,7 +15,7 @@ const EquiposRegisterForm = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            await postClientesRequest({ "Modelo": modelo, "Marca": marca, "Descripcion": descripcion });
+            await postEquiposRequest({ "Modelo": modelo, "Marca": marca, "Descripcion": descripcion });
             setTimeout(() => {
                 setIsLoading(false);
                 window.location.reload();
