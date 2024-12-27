@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import { getClientesRequest, postAcuseDeEntregaRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const AcuseEntregaEquipoRegisterForm = () => {
+const AcuseEntregaEquipoRegisterForm = ({ onSubmit }) => {
 
     const [cliente, setCliente] = useState();
     const [clientesForSelectInput, setClientesForSelectInput] = useState([]);
@@ -32,7 +33,9 @@ const AcuseEntregaEquipoRegisterForm = () => {
             console.log("Acuse de entrega de equipo demo registrado");
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
         }
         catch (error) {
@@ -43,7 +46,7 @@ const AcuseEntregaEquipoRegisterForm = () => {
 
     return (
         <form onSubmit={postAcuseDemo} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-            <h3>Selecciona el usuario para generar acuse</h3>
+            <h3>Selecciona el usuario para generar acuse de entrega de equipo</h3>
             <Select
                 name="cliente"
                 onChange={(e) => setCliente(e.target.value)}
@@ -60,5 +63,9 @@ const AcuseEntregaEquipoRegisterForm = () => {
         </form>
     );
 };
+
+AcuseEntregaEquipoRegisterForm.propTypes = {
+    onSubmit: PropTypes.func
+}
 
 export default AcuseEntregaEquipoRegisterForm;

@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { useState } from "react";
 import Input from "../../../../components/Input/input";
 import { postEquiposRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const EquiposRegisterForm = () => {
+const EquiposRegisterForm = ({ onSubmit }) => {
 
     const [modelo, setModelo] = useState('')
     const [marca, setMarca] = useState('')
@@ -18,7 +19,9 @@ const EquiposRegisterForm = () => {
             await postEquiposRequest({ "Modelo": modelo, "Marca": marca, "Descripcion": descripcion });
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
         }
         catch (error) {
@@ -70,6 +73,10 @@ const EquiposRegisterForm = () => {
 
         </form>
     );
+};
+
+EquiposRegisterForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
 };
 
 export default EquiposRegisterForm;

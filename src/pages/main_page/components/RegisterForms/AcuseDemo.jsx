@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import { getClientesRequest, postAcuseDemoRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const AcuseDemoRegisterForm = () => {
+const AcuseDemoRegisterForm = ({ onSubmit }) => {
 
     const [cliente, setCliente] = useState();
     const [clientesForSelectInput, setClientesForSelectInput] = useState([]);
@@ -32,7 +33,9 @@ const AcuseDemoRegisterForm = () => {
             console.log("Acuse de entrega de equipo demo registrado");
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
         }
         catch (error) {
@@ -60,5 +63,9 @@ const AcuseDemoRegisterForm = () => {
         </form>
     );
 };
+
+AcuseDemoRegisterForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+}
 
 export default AcuseDemoRegisterForm;
