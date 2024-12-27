@@ -9,6 +9,17 @@ export const getLoadingState = () => {
         }
     ];
 };
+
+export const notFoundState = () => {
+    return [
+        {
+            name: "No se encontraron resultados",
+            age: null,
+            email: "",
+            role: "",
+        }
+    ];
+}
 /*
 // Función 2
 export const getAcuseDeEntrega = () => {

@@ -21,15 +21,15 @@ import SolicitudPrestamoRegisterForm from './components/RegisterForms/SolicitudP
 import EquiposRegisterForm from './components/RegisterForms/Equipos';
 
 export default function MainPage() {
-
-  const [data, setData] = useState(getLoadingState());
+  const [data, setData] = useState(getLoadingState([]));
+  const [filteredData, setFilteredData] = useState(data);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dataIndex, setDataIndex] = useState()
+  const [dataIndex, setDataIndex] = useState();
   const [currentForm, setCurrentForm] = useState(() => AcuseDemoRegisterForm);
 
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
-
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const [isModalTableOpen, setIsModalTableOpen] = useState(false);
   const openTableModal = () => setIsModalTableOpen(true);
@@ -52,15 +52,26 @@ export default function MainPage() {
     try {
       const result = await requestFunction();
       setData(result);
+      setFilteredData(result);
     } catch (err) {
       console.error(err.message);
     }
   };
 
+  // useEffect que se ejecuta solo una vez cuando se monta el componente
   useEffect(() => {
-
-    fetchData(0);
+    fetchData(0); // Llamada a la API al montar el componente
   }, []);
+
+  // useEffect que se ejecuta cuando el término de búsqueda cambia o los datos cambian
+  useEffect(() => {
+    const filtered = data.filter(item => {
+      return Object.values(item).some(value =>
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
 
   const handleFormSubmit = () => {
     fetchData(dataIndex);
@@ -69,56 +80,50 @@ export default function MainPage() {
 
   const handleMenuSelect = async (menuIndex) => {
     try {
+      setSearchTerm(''); // Resetea el término de búsqueda al cambiar de sección
+      setData(getLoadingState()); // Resetear los datos antes de hacer una nueva solicitud
       let result;
 
       switch (menuIndex) {
         case 0:
-          setData(getLoadingState());
           result = await getAcuseDemoRequest();
           setCurrentForm(() => AcuseDemoRegisterForm);
           break;
         case 1:
-          setData(getLoadingState());
           result = await getAcuseDeEntregaRequest();
           setCurrentForm(() => AcuseEntregaEquipoRegisterForm);
           break;
         case 2:
-          setData(getLoadingState());
           result = await getReciboDemoRequest();
           setCurrentForm(() => AcuseRecibidoDemo);
           break;
         case 3:
-          setData(getLoadingState());
           result = await getManttoPreventivoRequest();
           setCurrentForm(() => CalendarioManttoPreventivo);
           break;
         case 4:
-          setData(getLoadingState());
           result = await getOrdenServicioRequest();
           setCurrentForm(() => OrdenDeServicio);
           break;
         case 5:
-          setData(getLoadingState());
           result = await getSolicitudPrestamoRequest();
           setCurrentForm(() => SolicitudPrestamoRegisterForm);
           break;
         case 6:
-          setData(getLoadingState());
           result = await getClientesRequest();
           setCurrentForm(() => ClientesRegisterForm);
           break;
         case 7:
-          setData(getLoadingState());
           result = await getEquiposRequest();
           setCurrentForm(() => EquiposRegisterForm);
           break;
-        // Añade más casos según sea necesario
         default:
           result = [];
           setCurrentForm(() => null);
       }
 
       setData(result);
+      setFilteredData(result); // Actualiza los datos filtrados
     } catch (err) {
       console.error(err.message);
     }
@@ -137,21 +142,30 @@ export default function MainPage() {
       </Modal>
 
       <nav className={styles.nav}>
-        <SearchBar placeholder="Buscar persona..." />
+        <SearchBar
+          placeholder="Buscar persona..."
+          value={searchTerm}
+          onSearch={(text) => setSearchTerm(text)}
+        />
       </nav>
       <main className={styles.MainContent}>
         <MenuList onMenuSelect={(index) => {
-          handleMenuSelect(index)
-          setDataIndex(index)
+          handleMenuSelect(index);
+          setDataIndex(index);
         }} />
         <div className={styles.Sectionbuttons}>
-          <table className={styles.table}>
-            <Table
-              index={dataIndex !== undefined ? dataIndex : 0}
-              onClick={openTableModal}
-              showDownloadColumn={true}
-              data={data} />
-          </table>
+          {filteredData.length === 0 ? (
+            <p>No se encontraron resultados</p>
+          ) : (
+            <table className={styles.table}>
+              <Table
+                index={dataIndex !== undefined ? dataIndex : 0}
+                onClick={openTableModal}
+                showDownloadColumn={true}
+                data={filteredData}
+              />
+            </table>
+          )}
           <section className={styles.buttons}>
             <Button onClick={openModal} title="Insertar datos" />
           </section>
