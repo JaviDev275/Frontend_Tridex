@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AcuseDeReciboDemo({data}) {
-      const fechaFormateada = formatearFecha();
+export default function AcuseDeReciboDemo({ data }) {
+  const fechaFormateada = formatearFecha();
 
   const apiData = {
-    nombre: 'Javier Antonio',
+    nombre: '',
     direccion: '',
     telefono: '',
     equipos: [
@@ -169,7 +169,7 @@ export default function AcuseDeReciboDemo({data}) {
         <View style={styles.clientInfoContainer}>
           <View style={styles.clientInfoRow}>
             <Text style={styles.label}>NOMBRE DEL RESPONSABLE:</Text>
-            <Text style={styles.input}>{apiData.nombre || ''}</Text>
+            <Text style={styles.input}>{data.NombreDelResponsable}</Text>
           </View>
           <Text style={styles.CommunicatedText}>Por medio del presente acuso de entrega de equipo médico siguiente:</Text>
         </View>
