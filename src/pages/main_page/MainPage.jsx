@@ -19,6 +19,7 @@ import OrdenDeServicio from './components/RegisterForms/OrdenServicio';
 import ClientesRegisterForm from './components/RegisterForms/Clientes';
 import SolicitudPrestamoRegisterForm from './components/RegisterForms/SolicitudPrestamo';
 import EquiposRegisterForm from './components/RegisterForms/Equipos';
+import DropAlert from '../../components/dropAlert/DropAlert';
 
 export default function MainPage() {
   const [data, setData] = useState(getLoadingState([]));
@@ -147,6 +148,7 @@ export default function MainPage() {
           value={searchTerm}
           onSearch={(text) => setSearchTerm(text)}
         />
+        <DropAlert />
       </nav>
       <main className={styles.MainContent}>
         <MenuList onMenuSelect={(index) => {

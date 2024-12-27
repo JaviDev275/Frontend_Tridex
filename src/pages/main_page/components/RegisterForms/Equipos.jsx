@@ -63,7 +63,7 @@ const EquiposRegisterForm = ({ onSubmit }) => {
                 placeholder="Ingresa la descripción"
                 onChange={(e) => setDescripcion(e.target.value)}
                 value={descripcion}
-                maxLength={10}
+                maxLength={100}
                 isRequired={true}
             />
 
