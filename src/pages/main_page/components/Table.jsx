@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Table.module.css";
-import { IoChevronDownSharp} from "react-icons/io5";
+import { IoChevronDownSharp } from "react-icons/io5";
 import { FcDownload } from "react-icons/fc";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
@@ -31,19 +31,21 @@ const Table = ({ data, showDownloadColumn, index }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [reportsCountData, setReportsCountData] = useState(null);
 
+  const fetchReportsCount = async () => {
+    try {
+      const result = await getReportsCountRequest()
+      setReportsCountData(result); // Almacenar los datos obtenidos
+    } catch (error) {
+      console.error("Error fetching reports count data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchReportsCount = async () => {
-      try {
-        const result= await getReportsCountRequest()
-        setReportsCountData(result); // Almacenar los datos obtenidos
-      } catch (error) {
-        console.error("Error fetching reports count data:", error);
-      }
-    };
+
 
     fetchReportsCount();
   }, []);
-      // Referencia para el dropdown
+  // Referencia para el dropdown
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -89,6 +91,10 @@ const Table = ({ data, showDownloadColumn, index }) => {
   const endIndex = startIndex + itemsPerPage;
   const currentData = data.slice(startIndex, endIndex);
 
+  const handleDownloadComplete = () => {
+    fetchReportsCount();
+  };
+
   return (
     <div className={styles.tableContainer}>
       <table className={styles.table}>
@@ -106,16 +112,17 @@ const Table = ({ data, showDownloadColumn, index }) => {
               {Object.keys(row).map((header, colIndex) => (
                 <td key={colIndex}>{row[header]}</td>
               ))}
-{showDownloadColumn && pdfComponents[index] && (
-  <td className={styles.downloadCell}>
-  <PDFDownloadLink
-    document={React.createElement(pdfComponents[index], { reportsCountData ,data: row })}
-    fileName={`documento-${rowIndex}.pdf`}
-  >
-    <FcDownload />
-  </PDFDownloadLink>
-  </td>
-)}
+              {showDownloadColumn && pdfComponents[index] && (
+                <td className={styles.downloadCell}>
+                  <PDFDownloadLink
+                    document={React.createElement(pdfComponents[index], { reportsCountData, data: row })}
+                    fileName={`documento-${rowIndex}.pdf`}
+                    onClick={handleDownloadComplete}
+                  >
+                    <FcDownload />
+                  </PDFDownloadLink>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
@@ -125,9 +132,7 @@ const Table = ({ data, showDownloadColumn, index }) => {
         <div className={styles.pageSelectContainer}>
           <div
             ref={dropdownRef}
-            className={`${styles.customDropdown} ${
-              dropdownOpen ? styles.open : ""
-            }`}
+            className={`${styles.customDropdown} ${dropdownOpen ? styles.open : ""}`}
             onClick={toggleDropdown}
           >
             {currentPage}
@@ -138,11 +143,7 @@ const Table = ({ data, showDownloadColumn, index }) => {
                   <li
                     key={index}
                     onClick={() => handlePageSelect(index + 1)}
-                    className={
-                      currentPage === index + 1
-                        ? styles.activeDropdownItem
-                        : ""
-                    }
+                    className={currentPage === index + 1 ? styles.activeDropdownItem : ""}
                   >
                     {index + 1}
                   </li>
@@ -181,7 +182,7 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   showDownloadColumn: PropTypes.bool,
   onClick: PropTypes.func,
-  index:PropTypes.number,
+  index: PropTypes.number,
 };
 
 Table.defaultProps = {
