@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Input from "../../../../components/Input/input";
 import Select from "../../../../components/Input/Select";
 import { getClientesRequest, getEquiposRequest, postManttoPreventivoRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const CalendarioManttoPreventivo = () => {
+const CalendarioManttoPreventivo = ({ onSubmit }) => {
 
     const [cliente, setCliente] = useState('')
     const [descripcion, setDescripcion] = useState('')
@@ -46,7 +47,9 @@ const CalendarioManttoPreventivo = () => {
             console.log("Acuse de entrega de equipo demo registrado");
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
         }
         catch (error) {
@@ -118,5 +121,9 @@ const CalendarioManttoPreventivo = () => {
         </form>
     );
 };
+
+CalendarioManttoPreventivo.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+}
 
 export default CalendarioManttoPreventivo;

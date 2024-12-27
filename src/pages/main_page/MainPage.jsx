@@ -35,17 +35,37 @@ export default function MainPage() {
   const openTableModal = () => setIsModalTableOpen(true);
   const closeTableModal = () => setIsModalTableOpen(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAcuseDemoRequest();
-        setData(result);
-      } catch (err) {
-        console.error(err.message);
-      }
+  const fetchData = async (menuIndex = 0) => {
+    const requestMap = {
+      0: getAcuseDemoRequest,
+      1: getAcuseDeEntregaRequest,
+      2: getReciboDemoRequest,
+      3: getManttoPreventivoRequest,
+      4: getOrdenServicioRequest,
+      5: getSolicitudPrestamoRequest,
+      6: getClientesRequest,
+      7: getEquiposRequest,
     };
-    fetchData();
+
+    const requestFunction = requestMap[menuIndex] || getAcuseDemoRequest;
+
+    try {
+      const result = await requestFunction();
+      setData(result);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+
+    fetchData(0);
   }, []);
+
+  const handleFormSubmit = () => {
+    fetchData(dataIndex);
+    closeModal();
+  };
 
   const handleMenuSelect = async (menuIndex) => {
     try {
@@ -107,7 +127,7 @@ export default function MainPage() {
   return (
     <div className={styles.MainContainer}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {currentForm ? React.createElement(currentForm) : <p>Selecciona un formulario</p>}
+        {currentForm ? React.createElement(currentForm, { onSubmit: handleFormSubmit }) : <p>Selecciona un formulario</p>}
       </Modal>
 
       <Modal isOpen={isModalTableOpen} onClose={closeTableModal}>
@@ -120,8 +140,9 @@ export default function MainPage() {
         <SearchBar placeholder="Buscar persona..." />
       </nav>
       <main className={styles.MainContent}>
-        <MenuList onMenuSelect={(index)=>{handleMenuSelect(index)
-        setDataIndex(index)
+        <MenuList onMenuSelect={(index) => {
+          handleMenuSelect(index)
+          setDataIndex(index)
         }} />
         <div className={styles.Sectionbuttons}>
           <table className={styles.table}>

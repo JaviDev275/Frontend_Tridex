@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Input from "../../../../components/Input/input";
 import Select from "../../../../components/Input/Select";
 import { getClientesRequest, postReciboDemoRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const AcuseRecibidoDemo = () => {
+const AcuseRecibidoDemo = ({ onSubmit }) => {
 
     const [cliente, setCliente] = useState('')
     const [fechaProgramada, setFechaProgramada] = useState('')
@@ -34,7 +35,9 @@ const AcuseRecibidoDemo = () => {
             console.log("Acuse de entrega de equipo demo registrado");
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
             setIsLoading(false);
         }
@@ -75,5 +78,9 @@ const AcuseRecibidoDemo = () => {
         </form>
     );
 };
+
+AcuseRecibidoDemo.propTypes = {
+    onSubmit: PropTypes.func
+}
 
 export default AcuseRecibidoDemo;

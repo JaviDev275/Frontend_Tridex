@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Input from "../../../../components/Input/input";
 import Select from "../../../../components/Input/Select";
 import { getClientesRequest, getEquiposRequest, postOrdenServicioRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const OrdenDeServicio = () => {
+const OrdenDeServicio = ({ onSubmit }) => {
 
     const [cliente, setCliente] = useState('')
     const [ubicacion, setUbicacion] = useState('')
@@ -45,7 +46,9 @@ const OrdenDeServicio = () => {
             console.log("Acuse de entrega de equipo demo registrado");
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
         }
         catch (error) {
@@ -118,6 +121,10 @@ const OrdenDeServicio = () => {
             <ButtonSubmit disable={isLoading} title={isLoading ? 'cargando' : 'Agregar'} />
         </form>
     );
+};
+
+OrdenDeServicio.propTypes = {
+    onSubmit: PropTypes.func
 };
 
 export default OrdenDeServicio;

@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import { getClientesRequest, postSolicitudPrestamoRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const SolicitudPrestamoRegisterForm = () => {
+const SolicitudPrestamoRegisterForm = ({ onSubmit }) => {
 
     const [nombreDelSolicitante, setNombreDelSolicitante] = useState();
     const [clientesForSelectInput, setClientesForSelectInput] = useState([]);
@@ -31,7 +32,9 @@ const SolicitudPrestamoRegisterForm = () => {
             await postSolicitudPrestamoRequest({ "NombreDelSolicitante": nombreDelSolicitante });
             setTimeout(() => {
                 setIsLoading(false);
-                window.location.reload();
+                if (onSubmit) {
+                    onSubmit();
+                }
             }, 2000);
         }
         catch (error) {
@@ -58,6 +61,10 @@ const SolicitudPrestamoRegisterForm = () => {
             <ButtonSubmit disable={isLoading} title={isLoading ? 'cargando' : 'Agregar'} />
         </form>
     );
+};
+
+SolicitudPrestamoRegisterForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
 };
 
 export default SolicitudPrestamoRegisterForm;
