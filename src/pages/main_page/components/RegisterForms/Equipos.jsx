@@ -3,11 +3,11 @@ import Input from "../../../../components/Input/input";
 import { postClientesRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const ClientesRegisterForm = () => {
+const EquiposRegisterForm = () => {
 
-    const [cliente, setCliente] = useState('')
-    const [direccion, setDireccion] = useState('')
-    const [telefono, setTelefono] = useState('')
+    const [modelo, setModelo] = useState('')
+    const [marca, setMarca] = useState('')
+    const [descripcion, setDescripcion] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [hasError, setHasError] = useState('')
 
@@ -15,8 +15,7 @@ const ClientesRegisterForm = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            await postClientesRequest({ "Cliente": cliente, "Direccion": direccion, "Telefono": telefono });
-            console.log("Acuse de entrega de equipo demo registrado");
+            await postClientesRequest({ "Modelo": modelo, "Marca": marca, "Descripcion": descripcion });
             setTimeout(() => {
                 setIsLoading(false);
                 window.location.reload();
@@ -32,35 +31,35 @@ const ClientesRegisterForm = () => {
     return (
         <form onSubmit={postCliente} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
 
-            <h3>Agregar nuevo cliente</h3>
+            <h3>Agregar nuevo equipo</h3>
             <Input
-                name="cliente"
-                title="Nombre del cliente"
-                placeholder="Ingresa el nombre"
-                onChange={(e) => setCliente(e.target.value)}
-                value={cliente}
-                maxLength={60}
+                name="modelo"
+                title="Modelo"
+                placeholder="Ingresa el modelo"
+                onChange={(e) => setModelo(e.target.value)}
+                value={modelo}
+                maxLength={30}
                 isRequired={true}
             />
 
 
             <Input
-                name="direccion"
-                title="Dirección"
-                placeholder="Ingresa la dirección"
-                onChange={(e) => setDireccion(e.target.value)}
-                value={direccion}
-                maxLength={60}
+                name="marca"
+                title="Marca"
+                placeholder="Ingresa la marca"
+                onChange={(e) => setMarca(e.target.value)}
+                value={marca}
+                maxLength={30}
                 isRequired={true}
             />
 
 
             <Input
-                name="telefono"
-                title="Teléfono"
-                placeholder="Ingresa el teléfono"
-                onChange={(e) => setTelefono(e.target.value)}
-                value={telefono}
+                name="descripcion"
+                title="Descripción"
+                placeholder="Ingresa la descripción"
+                onChange={(e) => setDescripcion(e.target.value)}
+                value={descripcion}
                 maxLength={10}
                 isRequired={true}
             />
@@ -73,4 +72,4 @@ const ClientesRegisterForm = () => {
     );
 };
 
-export default ClientesRegisterForm;
+export default EquiposRegisterForm;

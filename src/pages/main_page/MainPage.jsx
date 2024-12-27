@@ -18,19 +18,17 @@ import AcuseRecibidoDemo from './components/RegisterForms/AcuseRecibidoDemo';
 import CalendarioManttoPreventivo from './components/RegisterForms/CalendarioManttoPreventivo';
 import OrdenDeServicio from './components/RegisterForms/OrdenServicio';
 import ClientesRegisterForm from './components/RegisterForms/Clientes';
+import SolicitudPrestamoRegisterForm from './components/RegisterForms/SolicitudPrestamo';
+import EquiposRegisterForm from './components/RegisterForms/Equipos';
 
 export default function MainPage() {
 
   const [data, setData] = useState(getLoadingState());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentForm, setCurrentForm] = useState(() => AcuseDemoRegisterForm);
-  const [formInputs, setFormInputs] = useState({});
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setFormInputs({}); // Limpia los inputs
-  };
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
 
   const [isModalTableOpen, setIsModalTableOpen] = useState(false);
   const openTableModal = () => setIsModalTableOpen(true);
@@ -81,7 +79,7 @@ export default function MainPage() {
         case 5:
           setData(getLoadingState());
           result = await getSolicitudPrestamoRequest();
-          setCurrentForm(() => reciboDemoRegisterForm);
+          setCurrentForm(() => SolicitudPrestamoRegisterForm);
           break;
         case 6:
           setData(getLoadingState());
@@ -91,7 +89,7 @@ export default function MainPage() {
         case 7:
           setData(getLoadingState());
           result = await getEquiposRequest();
-          setCurrentForm(() => reciboDemoRegisterForm);
+          setCurrentForm(() => EquiposRegisterForm);
           break;
         // Añade más casos según sea necesario
         default:
@@ -104,52 +102,6 @@ export default function MainPage() {
       console.error(err.message);
     }
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormInputs((prev) => ({ ...prev, [name]: value }));
-  };
-
-
-  const reciboDemoRegisterForm = () => (
-    <>
-      <h3>Formulario Recibo Demo</h3>
-      <Input
-        name="fecha"
-        title="Fecha"
-        placeholder="Ingresa la fecha"
-        onChange={handleInputChange}
-        value={formInputs.fecha || ''}
-      />
-      <Input
-        name="monto"
-        title="Monto"
-        placeholder="Ingresa el monto"
-        onChange={handleInputChange}
-        value={formInputs.monto || ''}
-      />
-    </>
-  );
-
-  const manttoPreventivoRegisterForm = () => (
-    <>
-      <h3>Formulario Mantenimiento Preventivo</h3>
-      <Input
-        name="equipo"
-        title="Equipo"
-        placeholder="Nombre del equipo"
-        onChange={handleInputChange}
-        value={formInputs.equipo || ''}
-      />
-      <Input
-        name="fecha"
-        title="Fecha"
-        placeholder="Ingresa la fecha"
-        onChange={handleInputChange}
-        value={formInputs.fecha || ''}
-      />
-    </>
-  );
 
   return (
     <div className={styles.MainContainer}>

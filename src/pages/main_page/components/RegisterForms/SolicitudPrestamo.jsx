@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import Input from "../../../../components/Input/input";
 import Select from "../../../../components/Input/Select";
-import { getClientesRequest, postReciboDemoRequest } from "../../../../service/public.service";
+import { getClientesRequest, postSolicitudPrestamoRequest } from "../../../../service/public.service";
 import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
-const AcuseRecibidoDemo = () => {
+const SolicitudPrestamoRegisterForm = () => {
 
-    const [cliente, setCliente] = useState('')
-    const [fechaProgramada, setFechaProgramada] = useState('')
+    const [nombreDelSolicitante, setNombreDelSolicitante] = useState();
     const [clientesForSelectInput, setClientesForSelectInput] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
     const [hasError, setHasError] = useState('')
@@ -26,17 +24,15 @@ const AcuseRecibidoDemo = () => {
         fetchData();
     }, []);
 
-    const postReciboDemo = async (e) => {
+    const postAcuseDemo = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            await postReciboDemoRequest({ "NombreDelResponsable": cliente, "FechaProgramada": fechaProgramada });
-            console.log("Acuse de entrega de equipo demo registrado");
+            await postSolicitudPrestamoRequest({ "NombreDelSolicitante": nombreDelSolicitante });
             setTimeout(() => {
                 setIsLoading(false);
                 window.location.reload();
             }, 2000);
-            setIsLoading(false);
         }
         catch (error) {
             setIsLoading(false);
@@ -44,31 +40,19 @@ const AcuseRecibidoDemo = () => {
         }
     }
 
-
     return (
-        <form onSubmit={postReciboDemo} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-            <h3>Generar acuse de recibido demo</h3>
+        <form onSubmit={postAcuseDemo} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+            <h3>Generar solicitud de prestamo</h3>
             <Select
                 name="cliente"
-                onChange={(e) => setCliente(e.target.value)}
+                onChange={(e) => setNombreDelSolicitante(e.target.value)}
                 options={clientesForSelectInput}
-                value={cliente}
+                value={nombreDelSolicitante}
                 placeholder="Seleccionar cliente"
-                label="Clientes"
+                label="Ingresar nombre del solicitante"
                 isRequired={true}
                 disabled={isLoading}
             />
-            <Input
-                name="fechaProgramada"
-                title="Fecha programa"
-                inputType="date"
-                placeholder="Ingresar fecha"
-                onChange={(e) => setFechaProgramada(e.target.value)}
-                value={fechaProgramada}
-                isRequired={true}
-                disabled={isLoading}
-            />
-
             {hasError && <p style={{ color: 'red' }}>{hasError}</p>}
 
             <ButtonSubmit disable={isLoading} title={isLoading ? 'cargando' : 'Agregar'} />
@@ -76,4 +60,4 @@ const AcuseRecibidoDemo = () => {
     );
 };
 
-export default AcuseRecibidoDemo;
+export default SolicitudPrestamoRegisterForm;
