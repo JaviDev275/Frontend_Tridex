@@ -50,16 +50,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PrestamoEquipo() {
+export default function PrestamoEquipo({reportsCountData}) {
   return (
     <Document>
       {/* Primera página con texto y primera imagen */}
       <Page size="A4" style={styles.page}>
-        <Text style={styles.folioTop}>2024-001</Text>
-        <Text style={styles.folioButton}>2024-001</Text>
-        <Text style={styles.folioDateDay}>12</Text>
-        <Text style={styles.folioDateMonth}>11</Text>
-        <Text style={styles.folioDateYear}>24</Text>
+        <Text style={styles.folioTop}>{reportsCountData.folio}</Text>
+        <Text style={styles.folioButton}>{reportsCountData.folio}</Text>
+        <Text style={styles.folioDateDay}>{reportsCountData.date.day}</Text>
+        <Text style={styles.folioDateMonth}>{reportsCountData.date.month}</Text>
+        <Text style={styles.folioDateYear}>{reportsCountData.date.year}</Text>
         <Image style={styles.image} src={ImageSoliOne} />
       </Page>
 

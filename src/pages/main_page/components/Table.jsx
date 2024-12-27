@@ -10,6 +10,7 @@ import AcuseDeEntrega from "../../../pdf/AcuseDeEntrega";
 import AcuseDeReciboDemo from '../../../pdf/AcuseDeReciboDemo';
 import OrdenDeServicio from '../../../pdf/OrdenDeServicio'
 import PrestamoEquipo from '../../../pdf/PrestamoEquipo'
+import { getReportsCountRequest } from "../../../service/public.service";
 
 const pdfComponents = {
   0: AcuseDeEntregaDemo,
@@ -25,12 +26,24 @@ const Table = ({ data, showDownloadColumn, index }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
-  console.log(index+'Hoalaaaaadkskdjkjsdhsd')
 
   // Estado para controlar el dropdown personalizado
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [reportsCountData, setReportsCountData] = useState(null);
 
-  // Referencia para el dropdown
+  useEffect(() => {
+    const fetchReportsCount = async () => {
+      try {
+        const result= await getReportsCountRequest()
+        setReportsCountData(result); // Almacenar los datos obtenidos
+      } catch (error) {
+        console.error("Error fetching reports count data:", error);
+      }
+    };
+
+    fetchReportsCount();
+  }, []);
+      // Referencia para el dropdown
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -96,7 +109,7 @@ const Table = ({ data, showDownloadColumn, index }) => {
 {showDownloadColumn && pdfComponents[index] && (
   <td className={styles.downloadCell}>
   <PDFDownloadLink
-    document={React.createElement(pdfComponents[index], { data: row })}
+    document={React.createElement(pdfComponents[index], { reportsCountData ,data: row })}
     fileName={`documento-${rowIndex}.pdf`}
   >
     <FcDownload />
