@@ -29,6 +29,7 @@ export default function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
     try {
+      console.log(userLogin)
       const response = await loginRequest(userLogin);
       login(response); // Maneja la redirección o lógica posterior al login aquí.
       setIsLoading(false);
@@ -63,7 +64,7 @@ export default function LoginForm() {
               value={userLogin.contrasena}
               isRequired={true}
               inputType='password'
-            />
+            />  
           </div>
           <Button title={isLoading ? 'Iniciando...' : 'Iniciar sesión'} disable={isLoading} />
 
