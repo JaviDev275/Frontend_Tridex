@@ -7,10 +7,9 @@ import Button from '../../components/buttons/Button';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/Input/input';
 
-// Importa las funciones que traen los datos
 import {
   getLoadingState,
-} from '../../data/data'; // Ajusta la ruta según tu estructura
+} from '../../data/data';
 import { getAcuseDeEntregaRequest, getAcuseDemoRequest, getClientesRequest, getEquiposRequest, getManttoPreventivoRequest, getOrdenServicioRequest, getReciboDemoRequest, getSolicitudPrestamoRequest, } from '../../service/public.service';
 import AcuseDemoRegisterForm from './components/RegisterForms/AcuseDemo';
 import AcuseEntregaEquipoRegisterForm from './components/RegisterForms/AcuseEntregaEquipo';
@@ -41,21 +40,6 @@ export default function MainPage() {
       try {
         const result = await getAcuseDemoRequest();
         setData(result);
-        setDataIndex(0);
-
-        let clientesResult = await getClientesRequest();
-        clientesResult = clientesResult.map((cliente) => ({
-          value: cliente.Cliente,
-          label: cliente.Cliente,
-        }));
-        setClientesForSelectInput(clientesResult);
-
-        const equiposResult = await getEquiposRequest();
-        const formattedEquipos = equiposResult.map((equipo) => ({
-          value: equipo.Equipo,
-          label: equipo.Equipo,
-        }));
-        setEquipos(formattedEquipos);
       } catch (err) {
         console.error(err.message);
       }
@@ -92,7 +76,6 @@ export default function MainPage() {
           setData(getLoadingState());
           result = await getOrdenServicioRequest();
           setCurrentForm(() => OrdenDeServicio);
-
           break;
         case 5:
           setData(getLoadingState());
@@ -103,7 +86,6 @@ export default function MainPage() {
           setData(getLoadingState());
           result = await getClientesRequest();
           setCurrentForm(() => ClientesRegisterForm);
-
           break;
         case 7:
           setData(getLoadingState());
@@ -125,8 +107,7 @@ export default function MainPage() {
   return (
     <div className={styles.MainContainer}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>Formulario</h2>
-        {currentForm ? React.createElement(currentForm):<p>Seleccionar formulario</p>}
+        {currentForm ? React.createElement(currentForm) : <p>Selecciona un formulario</p>}
       </Modal>
 
       <Modal isOpen={isModalTableOpen} onClose={closeTableModal}>
