@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../../components/search/SearchBar';
 import MenuList from '../../components/MenuList/MenuList';
 import styles from './MainPage.module.css';
@@ -25,10 +25,12 @@ export default function MainPage() {
 
   const [data, setData] = useState(getLoadingState());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dataIndex, setDataIndex] = useState()
   const [currentForm, setCurrentForm] = useState(() => AcuseDemoRegisterForm);
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
+
 
   const [isModalTableOpen, setIsModalTableOpen] = useState(false);
   const openTableModal = () => setIsModalTableOpen(true);
@@ -39,6 +41,7 @@ export default function MainPage() {
       try {
         const result = await getAcuseDemoRequest();
         setData(result);
+        setDataIndex(0);
 
         let clientesResult = await getClientesRequest();
         clientesResult = clientesResult.map((cliente) => ({
@@ -68,22 +71,22 @@ export default function MainPage() {
         case 0:
           setData(getLoadingState());
           result = await getAcuseDemoRequest();
-          setCurrentForm(() => acuseDemoRegisterForm);
+          setCurrentForm(() => AcuseDemoRegisterForm);
           break;
         case 1:
           setData(getLoadingState());
           result = await getAcuseDeEntregaRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => AcuseEntregaEquipoRegisterForm);
           break;
         case 2:
           setData(getLoadingState());
           result = await getReciboDemoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => AcuseRecibidoDemo);
           break;
         case 3:
           setData(getLoadingState());
           result = await getManttoPreventivoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => CalendarioManttoPreventivo);
           break;
         case 4:
           setData(getLoadingState());
@@ -123,7 +126,7 @@ export default function MainPage() {
     <div className={styles.MainContainer}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2>Formulario</h2>
-        {currentForm && currentForm()} {/* Renderiza el formulario dinámico */}
+        {currentForm ? React.createElement(currentForm):<p>Seleccionar formulario</p>}
       </Modal>
 
       <Modal isOpen={isModalTableOpen} onClose={closeTableModal}>
@@ -136,10 +139,13 @@ export default function MainPage() {
         <SearchBar placeholder="Buscar persona..." />
       </nav>
       <main className={styles.MainContent}>
-        <MenuList onMenuSelect={handleMenuSelect} />
+        <MenuList onMenuSelect={(index)=>{handleMenuSelect(index)
+        setDataIndex(index)
+        }} />
         <div className={styles.Sectionbuttons}>
           <table className={styles.table}>
             <Table
+              index={dataIndex !== undefined ? dataIndex : 0}
               onClick={openTableModal}
               showDownloadColumn={true}
               data={data} />

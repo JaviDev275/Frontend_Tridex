@@ -1,17 +1,31 @@
 import PropTypes from "prop-types";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Table.module.css";
 import { IoChevronDownSharp} from "react-icons/io5";
 import { FcDownload } from "react-icons/fc";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+
+import AcuseDeEntregaDemo from "../../../pdf/AcuseDeEntregaDemo";
 import AcuseDeEntrega from "../../../pdf/AcuseDeEntrega";
+import AcuseDeReciboDemo from '../../../pdf/AcuseDeReciboDemo';
+import OrdenDeServicio from '../../../pdf/OrdenDeServicio'
+import PrestamoEquipo from '../../../pdf/PrestamoEquipo'
+
+const pdfComponents = {
+  0: AcuseDeEntregaDemo,
+  1: AcuseDeEntrega,
+  2: AcuseDeReciboDemo,
+  4: OrdenDeServicio,
+  5: PrestamoEquipo,
+
+};
 
 
-
-const Table = ({ data, showDownloadColumn, onClick }) => {
+const Table = ({ data, showDownloadColumn, index }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
+  console.log(index+'Hoalaaaaadkskdjkjsdhsd')
 
   // Estado para controlar el dropdown personalizado
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -79,16 +93,16 @@ const Table = ({ data, showDownloadColumn, onClick }) => {
               {Object.keys(row).map((header, colIndex) => (
                 <td key={colIndex}>{row[header]}</td>
               ))}
-              {showDownloadColumn && (
-                <td className={styles.downloadCell}>
-                    <PDFDownloadLink document={<AcuseDeEntrega/>} fileName="AcuseDeEntrga.pdf">
-                      {
-                        ({loading, url, error, blob}) => loading ? 
-                        (<button>Descargar</button>) : (<button><FcDownload /></button>)
-                      }
-                    </PDFDownloadLink>
-                </td>
-              )}
+{showDownloadColumn && pdfComponents[index] && (
+  <td className={styles.downloadCell}>
+  <PDFDownloadLink
+    document={React.createElement(pdfComponents[index], { data: row })}
+    fileName={`documento-${rowIndex}.pdf`}
+  >
+    <FcDownload />
+  </PDFDownloadLink>
+  </td>
+)}
             </tr>
           ))}
         </tbody>
@@ -154,6 +168,7 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   showDownloadColumn: PropTypes.bool,
   onClick: PropTypes.func,
+  index:PropTypes.number,
 };
 
 Table.defaultProps = {
