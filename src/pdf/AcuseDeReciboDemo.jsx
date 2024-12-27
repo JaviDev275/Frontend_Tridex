@@ -1,5 +1,6 @@
 import { Page, Text, View, Document, StyleSheet, Image, } from '@react-pdf/renderer';
 import TridexLogo from '../assets/Tridex.png';
+import { formatearFecha } from '../utils/formatearFecha';
 
 const styles = StyleSheet.create({
   page: {
@@ -127,7 +128,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AcuseDeReciboDemo() {
+export default function AcuseDeReciboDemo({data}) {
+      const fechaFormateada = formatearFecha();
+
   const apiData = {
     nombre: 'Javier Antonio',
     direccion: '',
@@ -160,7 +163,7 @@ export default function AcuseDeReciboDemo() {
         </View>
 
         <View style={styles.place}>
-          <Text>Ciudad de México, CDMX a 20 agosto del 2024</Text>
+          <Text>Puebla, Puebla {fechaFormateada}</Text>
         </View>
 
         <View style={styles.clientInfoContainer}>

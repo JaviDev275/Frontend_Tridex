@@ -1,5 +1,6 @@
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import TridexLogo from '../assets/Tridex.png';
+import { formatearFecha } from '../utils/formatearFecha';
 
 const styles = StyleSheet.create({
   page: {
@@ -152,7 +153,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AcuseDeEntrega() {
+export default function AcuseDeEntrega({data}) {
+  const fechaFormateada = formatearFecha();
   const apiData = {
     nombre: '',
     direccion: '',
@@ -185,21 +187,21 @@ export default function AcuseDeEntrega() {
         </View>
 
         <View style={styles.place}>
-          <Text>Ciudad de México, CDMX a 20 agosto del 2024</Text>
+          <Text>Puebla,Puebla {fechaFormateada}</Text>
         </View>
 
         <View style={styles.clientInfoContainer}>
           <View style={styles.clientInfoRow}>
             <Text style={styles.label}>NOMBRE DEL CLIENTE:</Text>
-            <Text style={styles.input}>{apiData.nombre || ''}</Text>
+            <Text style={styles.input}>{data.Cliente}</Text>
           </View>
           <View style={styles.clientInfoRow}>
             <Text style={styles.label}>DIRECCIÓN:</Text>
-            <Text style={styles.input}>{apiData.direccion || ''}</Text>
+            <Text style={styles.input}>{data.Direccion}</Text>
           </View>
           <View style={styles.clientInfoRow}>
             <Text style={styles.label}>TELÉFONO:</Text>
-            <Text style={styles.input}>{apiData.telefono || ''}</Text>
+            <Text style={styles.input}>{data.Telefono}</Text>
           </View>
           <Text style={styles.CommunicatedText}>Por medio del presente acuso de entrega de equipo médico siguiente:</Text>
         </View>
@@ -250,4 +252,5 @@ export default function AcuseDeEntrega() {
       </Page>
     </Document>
   );
+
 }

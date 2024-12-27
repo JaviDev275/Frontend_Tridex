@@ -55,6 +55,18 @@ export const getEquiposRequest = async () => {
     }
 }
 
+export const getReportsCountRequest = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_URL}/${EquiposUrl}/get-reports-count`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 export const postEquiposRequest = async (equipo) => {
     try {
         const token = localStorage.getItem('token');

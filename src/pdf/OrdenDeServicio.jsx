@@ -1,5 +1,6 @@
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import TridexLogo from '../assets/Tridex.png';
+import { formatearFecha } from '../utils/formatearFecha';
 
 const styles = StyleSheet.create({
   page: {
@@ -107,7 +108,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function OrdenDeServicio() {
+export default function OrdenDeServicio({data}) {
+  console.log(data)
+  const fechaFormateada = formatearFecha();
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -126,7 +129,7 @@ export default function OrdenDeServicio() {
           {/* Filas existentes */}
           <View style={styles.tableRow}>
             <Text style={[styles.tableCell, { flex: 1 }]}>Fecha:</Text>
-            <Text style={[styles.tableCell, { flex: 1 }]}></Text>
+            <Text style={[styles.tableCell, { flex: 1 }]}>{fechaFormateada}</Text>
             <Text style={[styles.tableCell, { flex: 1 }]}>Asesoría:</Text>
             <View style={[styles.tableCell, { flex: 1 }]}>
               <View style={styles.checkbox}></View>
@@ -134,7 +137,7 @@ export default function OrdenDeServicio() {
           </View>
           <View style={styles.tableRow}>
             <Text style={[styles.tableCell, { flex: 1 }]}>Nombre:</Text>
-            <Text style={[styles.tableCell, { flex: 1 }]}></Text>
+            <Text style={[styles.tableCell, { flex: 1 }]}>{data.Nombre}</Text>
             <Text style={[styles.tableCell, { flex: 1 }]}>Mantto Correctivo:</Text>
             <View style={[styles.tableCell, { flex: 1 }]}>
               <View style={styles.checkbox}></View>
@@ -142,7 +145,7 @@ export default function OrdenDeServicio() {
           </View>
           <View style={styles.tableRow}>
             <Text style={[styles.tableCell, { flex: 1 }]}>Ubicación:</Text>
-            <Text style={[styles.tableCell, { flex: 1 }]}></Text>
+            <Text style={[styles.tableCell, { flex: 1 }]}>{data.Ubicación}</Text>
             <Text style={[styles.tableCell, { flex: 1 }]}>Mantto Preventivo:</Text>
             <View style={[styles.tableCell, { flex: 1 }]}>
               <View style={styles.checkbox}></View>
