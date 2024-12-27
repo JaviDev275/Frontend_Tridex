@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 
-export default function Select({ options, value, onChange, label, name, placeholder }) {
+export default function Select({ options, value, onChange, label, name, placeholder, isRequired, disabled }) {
   return (
     <div style={{ marginBottom: '16px' }}>
       {label && <label htmlFor={name} style={{ display: 'block', marginBottom: '8px' }}>{label}</label>}
       <select
+        required={isRequired}
         id={name}
         name={name}
         value={value}
         onChange={onChange}
+        disabled={disabled}
         style={{
           width: '100%',
           padding: '8px 12px',
@@ -43,4 +45,6 @@ Select.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
+  isRequired: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
