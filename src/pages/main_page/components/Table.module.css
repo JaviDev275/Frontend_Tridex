@@ -142,7 +142,6 @@ height: 100px;
 }
 
 .downloadCell  button{
-    margin: auto;
     width: 100%;
     background-color: transparent;
     border: none;
@@ -153,5 +152,7 @@ height: 100px;
 }
 
 .downloadCell{
-    width: 5%;
+    display: flex;
+    margin: auto;
+    justify-content: center;
 }

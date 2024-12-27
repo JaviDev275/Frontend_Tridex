@@ -24,10 +24,12 @@ export default function MainPage() {
 
   const [data, setData] = useState(getLoadingState());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dataIndex, setDataIndex] = useState()
   const [currentForm, setCurrentForm] = useState(() => AcuseDemoRegisterForm);
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
+
 
   const [isModalTableOpen, setIsModalTableOpen] = useState(false);
   const openTableModal = () => setIsModalTableOpen(true);
@@ -118,10 +120,13 @@ export default function MainPage() {
         <SearchBar placeholder="Buscar persona..." />
       </nav>
       <main className={styles.MainContent}>
-        <MenuList onMenuSelect={handleMenuSelect} />
+        <MenuList onMenuSelect={(index)=>{handleMenuSelect(index)
+        setDataIndex(index)
+        }} />
         <div className={styles.Sectionbuttons}>
           <table className={styles.table}>
             <Table
+              index={dataIndex !== undefined ? dataIndex : 0}
               onClick={openTableModal}
               showDownloadColumn={true}
               data={data} />

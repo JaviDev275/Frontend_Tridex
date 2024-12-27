@@ -156,7 +156,7 @@ export default function AcuseDeEntregaDemo() {
         <Image style={styles.image} src={TridexLogo} />
 
         <View style={styles.section}>
-          <Text style={styles.title}>Acuse de entrega de equipo</Text>
+          <Text style={styles.title}>Acuse de entrega de equipo DEMO</Text>
         </View>
 
         <View style={styles.place}>
