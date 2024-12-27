@@ -18,6 +18,7 @@ const CalendarioManttoPreventivo = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            console.log("Fetching data");
             setIsLoading(true);
             let clientesResult = await getClientesRequest();
             let equiposResult = await getEquiposRequest();

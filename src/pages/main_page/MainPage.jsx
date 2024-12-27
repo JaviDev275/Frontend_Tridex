@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../../components/search/SearchBar';
 import MenuList from '../../components/MenuList/MenuList';
 import styles from './MainPage.module.css';
@@ -7,10 +7,9 @@ import Button from '../../components/buttons/Button';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/Input/input';
 
-// Importa las funciones que traen los datos
 import {
   getLoadingState,
-} from '../../data/data'; // Ajusta la ruta según tu estructura
+} from '../../data/data';
 import { getAcuseDeEntregaRequest, getAcuseDemoRequest, getClientesRequest, getEquiposRequest, getManttoPreventivoRequest, getOrdenServicioRequest, getReciboDemoRequest, getSolicitudPrestamoRequest, } from '../../service/public.service';
 import AcuseDemoRegisterForm from './components/RegisterForms/AcuseDemo';
 import AcuseEntregaEquipoRegisterForm from './components/RegisterForms/AcuseEntregaEquipo';
@@ -39,20 +38,6 @@ export default function MainPage() {
       try {
         const result = await getAcuseDemoRequest();
         setData(result);
-
-        let clientesResult = await getClientesRequest();
-        clientesResult = clientesResult.map((cliente) => ({
-          value: cliente.Cliente,
-          label: cliente.Cliente,
-        }));
-        setClientesForSelectInput(clientesResult);
-
-        const equiposResult = await getEquiposRequest();
-        const formattedEquipos = equiposResult.map((equipo) => ({
-          value: equipo.Equipo,
-          label: equipo.Equipo,
-        }));
-        setEquipos(formattedEquipos);
       } catch (err) {
         console.error(err.message);
       }
@@ -68,28 +53,27 @@ export default function MainPage() {
         case 0:
           setData(getLoadingState());
           result = await getAcuseDemoRequest();
-          setCurrentForm(() => acuseDemoRegisterForm);
+          setCurrentForm(() => AcuseDemoRegisterForm);
           break;
         case 1:
           setData(getLoadingState());
           result = await getAcuseDeEntregaRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => AcuseEntregaEquipoRegisterForm);
           break;
         case 2:
           setData(getLoadingState());
           result = await getReciboDemoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => AcuseRecibidoDemo);
           break;
         case 3:
           setData(getLoadingState());
           result = await getManttoPreventivoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => CalendarioManttoPreventivo);
           break;
         case 4:
           setData(getLoadingState());
           result = await getOrdenServicioRequest();
           setCurrentForm(() => OrdenDeServicio);
-
           break;
         case 5:
           setData(getLoadingState());
@@ -100,7 +84,6 @@ export default function MainPage() {
           setData(getLoadingState());
           result = await getClientesRequest();
           setCurrentForm(() => ClientesRegisterForm);
-
           break;
         case 7:
           setData(getLoadingState());
@@ -122,8 +105,7 @@ export default function MainPage() {
   return (
     <div className={styles.MainContainer}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>Formulario</h2>
-        {currentForm && currentForm()} {/* Renderiza el formulario dinámico */}
+        {currentForm ? React.createElement(currentForm) : <p>Selecciona un formulario</p>}
       </Modal>
 
       <Modal isOpen={isModalTableOpen} onClose={closeTableModal}>
