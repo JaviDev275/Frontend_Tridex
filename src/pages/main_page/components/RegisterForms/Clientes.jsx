@@ -1,29 +1,37 @@
 import { useState } from "react";
 import Input from "../../../../components/Input/input";
 import { postClientesRequest } from "../../../../service/public.service";
+import ButtonSubmit from "../../../../components/buttons/ButtonSubmit";
 
 const ClientesRegisterForm = () => {
 
     const [cliente, setCliente] = useState('')
     const [direccion, setDireccion] = useState('')
     const [telefono, setTelefono] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const [hasError, setHasError] = useState('')
 
-    const postCliente = async () => {
+    const postCliente = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
         try {
             await postClientesRequest({ "Cliente": cliente, "Direccion": direccion, "Telefono": telefono });
             console.log("Acuse de entrega de equipo demo registrado");
             setTimeout(() => {
+                setIsLoading(false);
                 window.location.reload();
             }, 2000);
         }
         catch (error) {
-            console.log(error.msg);
+            setIsLoading(false);
+            setHasError(error.msg);
         }
     }
 
 
     return (
-        <>
+        <form onSubmit={postCliente} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+
             <h3>Agregar nuevo cliente</h3>
             <Input
                 name="cliente"
@@ -32,6 +40,7 @@ const ClientesRegisterForm = () => {
                 onChange={(e) => setCliente(e.target.value)}
                 value={cliente}
                 maxLength={60}
+                isRequired={true}
             />
 
 
@@ -42,23 +51,25 @@ const ClientesRegisterForm = () => {
                 onChange={(e) => setDireccion(e.target.value)}
                 value={direccion}
                 maxLength={60}
+                isRequired={true}
             />
 
 
             <Input
                 name="telefono"
                 title="Teléfono"
-                inputType="number"
                 placeholder="Ingresa el teléfono"
                 onChange={(e) => setTelefono(e.target.value)}
                 value={telefono}
                 maxLength={10}
+                isRequired={true}
             />
 
-            <button onClick={postCliente}>
-                Enviar
-            </button>
-        </>
+            {hasError && <p style={{ color: 'red' }}>{hasError}</p>}
+
+            <ButtonSubmit title={isLoading ? 'cargando' : 'Agregar'} />
+
+        </form>
     );
 };
 

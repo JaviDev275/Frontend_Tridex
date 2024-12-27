@@ -18,24 +18,19 @@ import AcuseRecibidoDemo from './components/RegisterForms/AcuseRecibidoDemo';
 import CalendarioManttoPreventivo from './components/RegisterForms/CalendarioManttoPreventivo';
 import OrdenDeServicio from './components/RegisterForms/OrdenServicio';
 import ClientesRegisterForm from './components/RegisterForms/Clientes';
-import Select from '../../components/Input/Select';
+import SolicitudPrestamoRegisterForm from './components/RegisterForms/SolicitudPrestamo';
+import EquiposRegisterForm from './components/RegisterForms/Equipos';
 
 export default function MainPage() {
 
   const [data, setData] = useState(getLoadingState());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [clientesForSelectInput, setClientesForSelectInput] = useState([]);
-  const [equipos, setEquipos] = useState([]);
-  const [currentForm, setCurrentForm] = useState(() => null);
-  const [selectedClient, setSelectedClient] = useState('');
-  const [formInputs, setFormInputs] = useState({});
   const [dataIndex, setDataIndex] = useState()
+  const [currentForm, setCurrentForm] = useState(() => AcuseDemoRegisterForm);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setFormInputs({}); // Limpia los inputs
-  };
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+
 
   const [isModalTableOpen, setIsModalTableOpen] = useState(false);
   const openTableModal = () => setIsModalTableOpen(true);
@@ -102,7 +97,7 @@ export default function MainPage() {
         case 5:
           setData(getLoadingState());
           result = await getSolicitudPrestamoRequest();
-          setCurrentForm(() => {});
+          setCurrentForm(() => SolicitudPrestamoRegisterForm);
           break;
         case 6:
           setData(getLoadingState());
@@ -113,7 +108,7 @@ export default function MainPage() {
         case 7:
           setData(getLoadingState());
           result = await getEquiposRequest();
-          setCurrentForm(() => {});
+          setCurrentForm(() => EquiposRegisterForm);
           break;
         // Añade más casos según sea necesario
         default:
