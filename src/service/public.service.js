@@ -14,7 +14,7 @@ export const loginRequest = async (user) => {
             throw new Error('Usuario no encontrado')
         }
         console.error(error.message)
-    }
+    }   
 }
 
 const ClientesUrl = 'clientes'

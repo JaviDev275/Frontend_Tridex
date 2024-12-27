@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../../components/search/SearchBar';
 import MenuList from '../../components/MenuList/MenuList';
 import styles from './MainPage.module.css';
@@ -29,6 +29,7 @@ export default function MainPage() {
   const [currentForm, setCurrentForm] = useState(() => null);
   const [selectedClient, setSelectedClient] = useState('');
   const [formInputs, setFormInputs] = useState({});
+  const [dataIndex, setDataIndex] = useState()
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -45,6 +46,7 @@ export default function MainPage() {
       try {
         const result = await getAcuseDemoRequest();
         setData(result);
+        setDataIndex(0);
 
         let clientesResult = await getClientesRequest();
         clientesResult = clientesResult.map((cliente) => ({
@@ -74,22 +76,22 @@ export default function MainPage() {
         case 0:
           setData(getLoadingState());
           result = await getAcuseDemoRequest();
-          setCurrentForm(() => acuseDemoRegisterForm);
+          setCurrentForm(() => AcuseDemoRegisterForm);
           break;
         case 1:
           setData(getLoadingState());
           result = await getAcuseDeEntregaRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => AcuseEntregaEquipoRegisterForm);
           break;
         case 2:
           setData(getLoadingState());
           result = await getReciboDemoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => AcuseRecibidoDemo);
           break;
         case 3:
           setData(getLoadingState());
           result = await getManttoPreventivoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => CalendarioManttoPreventivo);
           break;
         case 4:
           setData(getLoadingState());
@@ -100,7 +102,7 @@ export default function MainPage() {
         case 5:
           setData(getLoadingState());
           result = await getSolicitudPrestamoRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => {});
           break;
         case 6:
           setData(getLoadingState());
@@ -111,7 +113,7 @@ export default function MainPage() {
         case 7:
           setData(getLoadingState());
           result = await getEquiposRequest();
-          setCurrentForm(() => acuseDeEntregaRegisterForm);
+          setCurrentForm(() => {});
           break;
         // Añade más casos según sea necesario
         default:
@@ -125,99 +127,11 @@ export default function MainPage() {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormInputs((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const acuseDemoRegisterForm = () => (
-    <>
-      <h3>Formulario Acuse Demo</h3>
-      <Select
-        name="cliente"
-        onChange={handleInputChange}
-        options={clientesForSelectInput}
-        value={formInputs.cliente || ''}
-        placeholder="Seleccionar cliente"
-        label="Clientes"
-      />
-      <Input
-        name="descripcion"
-        title="Descripción"
-        placeholder="Ingresa una descripción"
-        onChange={handleInputChange}
-        value={formInputs.descripcion || ''}
-      />
-    </>
-  );
-
-  const acuseDeEntregaRegisterForm = () => (
-    <>
-      <h3>Formulario Acuse de Entrega</h3>
-      <Select
-        name="cliente"
-        onChange={handleInputChange}
-        options={clientesForSelectInput}
-        value={formInputs.cliente || ''}
-        placeholder="Seleccionar cliente"
-        label="Clientes"
-      />
-      <Select
-        name="equipo"
-        onChange={handleInputChange}
-        options={equipos}
-        value={formInputs.equipo || ''}
-        placeholder="Seleccionar equipo"
-        label="Equipos"
-      />
-    </>
-  );
-
-  const reciboDemoRegisterForm = () => (
-    <>
-      <h3>Formulario Recibo Demo</h3>
-      <Input
-        name="fecha"
-        title="Fecha"
-        placeholder="Ingresa la fecha"
-        onChange={handleInputChange}
-        value={formInputs.fecha || ''}
-      />
-      <Input
-        name="monto"
-        title="Monto"
-        placeholder="Ingresa el monto"
-        onChange={handleInputChange}
-        value={formInputs.monto || ''}
-      />
-    </>
-  );
-
-  const manttoPreventivoRegisterForm = () => (
-    <>
-      <h3>Formulario Mantenimiento Preventivo</h3>
-      <Input
-        name="equipo"
-        title="Equipo"
-        placeholder="Nombre del equipo"
-        onChange={handleInputChange}
-        value={formInputs.equipo || ''}
-      />
-      <Input
-        name="fecha"
-        title="Fecha"
-        placeholder="Ingresa la fecha"
-        onChange={handleInputChange}
-        value={formInputs.fecha || ''}
-      />
-    </>
-  );
-
   return (
     <div className={styles.MainContainer}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2>Formulario</h2>
-        {currentForm && currentForm()} {/* Renderiza el formulario dinámico */}
+        {currentForm ? React.createElement(currentForm):<p>Seleccionar formulario</p>}
       </Modal>
 
       <Modal isOpen={isModalTableOpen} onClose={closeTableModal}>
@@ -230,10 +144,13 @@ export default function MainPage() {
         <SearchBar placeholder="Buscar persona..." />
       </nav>
       <main className={styles.MainContent}>
-        <MenuList onMenuSelect={handleMenuSelect} />
+        <MenuList onMenuSelect={(index)=>{handleMenuSelect(index)
+        setDataIndex(index)
+        }} />
         <div className={styles.Sectionbuttons}>
           <table className={styles.table}>
             <Table
+              index={dataIndex !== undefined ? dataIndex : 0}
               onClick={openTableModal}
               showDownloadColumn={true}
               data={data} />
