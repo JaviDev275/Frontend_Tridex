@@ -8,14 +8,14 @@ const styles = StyleSheet.create({
     left: 384,             // Distancia desde el lado izquierdo
     fontSize: 10,         // Tamaño de la fuente
     fontWeight: 'light',   // Negrita
-    color: '#000', 
+    color: '#000',
   },
-  folioButton:{
+  folioButton: {
     top: 708,              // Distancia desde la parte superior
     left: 100,             // Distancia desde el lado izquierdo
     fontSize: 10,         // Tamaño de la fuente
     fontWeight: 'light',   // Negrita
-    color: '#000', 
+    color: '#000',
   },
   page: {
     flexDirection: 'column',
@@ -25,32 +25,32 @@ const styles = StyleSheet.create({
     width: '100%', // La imagen ocupa todo el ancho
     height: '100%', // La imagen ocupa toda la altura
     position: 'absolute', // Posición absoluta
-    zIndex:-1,
+    zIndex: -1,
   },
-  folioDateDay:{
+  folioDateDay: {
     top: 698,              // Distancia desde la parte superior
     left: 350,             // Distancia desde el lado izquierdo
     fontSize: 10,         // Tamaño de la fuente
     fontWeight: 'light',   // Negrita
-    color: '#000', 
+    color: '#000',
   },
-  folioDateMonth:{
+  folioDateMonth: {
     top: 687,              // Distancia desde la parte superior
     left: 390,             // Distancia desde el lado izquierdo
     fontSize: 10,         // Tamaño de la fuente
     fontWeight: 'light',   // Negrita
-    color: '#000', 
+    color: '#000',
   },
-  folioDateYear:{
+  folioDateYear: {
     top: 676,              // Distancia desde la parte superior
     left: 436,             // Distancia desde el lado izquierdo
     fontSize: 10,         // Tamaño de la fuente
     fontWeight: 'light',   // Negrita
-    color: '#000', 
+    color: '#000',
   },
 });
 
-export default function PrestamoEquipo({reportsCountData}) {
+export default function PrestamoEquipo({ reportsCountData }) {
   return (
     <Document>
       {/* Primera página con texto y primera imagen */}

@@ -20,6 +20,7 @@ import ClientesRegisterForm from './components/RegisterForms/Clientes';
 import SolicitudPrestamoRegisterForm from './components/RegisterForms/SolicitudPrestamo';
 import EquiposRegisterForm from './components/RegisterForms/Equipos';
 import DropAlert from '../../components/dropAlert/DropAlert';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function MainPage() {
   const [data, setData] = useState(getLoadingState([]));
@@ -28,6 +29,8 @@ export default function MainPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataIndex, setDataIndex] = useState();
   const [currentForm, setCurrentForm] = useState(() => AcuseDemoRegisterForm);
+
+  const { logout } = useAuth();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -143,6 +146,7 @@ export default function MainPage() {
       </Modal>
 
       <nav className={styles.nav}>
+        <Button onClick={logout} title="Cerrar sesión" />
         <SearchBar
           placeholder="Buscar persona..."
           value={searchTerm}
