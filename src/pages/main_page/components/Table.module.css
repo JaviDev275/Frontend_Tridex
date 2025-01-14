@@ -1,13 +1,16 @@
-.tableContainer{
-flex: 1;
-height: 100px;
+.tableContainer {
+    flex: 1;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    overflow-x: auto; /* Permite el scroll horizontal si es necesario */
+    margin: 16px 0;
 }
 
 .table {
     width: 100%;
     max-width: 100%;
     border-collapse: collapse;
-    
+    table-layout: auto; /* Permite que las columnas se ajusten dinámicamente */
+    font-size: 14px;
 }
 
 .table th,
@@ -15,6 +18,7 @@ height: 100px;
     border: 1px solid #b9b9b9;
     text-align: left;
     padding: 8px;
+    word-break: break-word; /* Asegura que el texto largo no desborde */
 }
 
 .table th {
@@ -29,16 +33,17 @@ height: 100px;
 
 .pagination {
     display: flex;
+    flex-wrap: wrap; /* Ajusta los elementos si no caben en una sola línea */
     justify-content: space-between;
     align-items: center;
     margin-top: 16px;
+    gap: 8px; /* Espacio entre los elementos de la paginación */
 }
 
 .pageSelectContainer {
     display: flex;
     align-items: center;
-    gap: 8px;
-    /* Espacio entre el texto y el dropdown */
+    gap: 8px; /* Espacio entre el texto y el dropdown */
 }
 
 .customDropdown {
@@ -50,8 +55,6 @@ height: 100px;
     background-color: white;
     font-size: 14px;
     font-weight: 500;
-    display: inline-block;
-    user-select: none;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -67,8 +70,7 @@ height: 100px;
     top: 100%;
     left: 0;
     right: 0;
-    max-height: 150px;
-    /* Muestra solo 5 elementos con scroll */
+    max-height: 150px; /* Muestra solo 5 elementos con scroll */
     overflow-y: auto;
     border: 1px solid #b9b9b9;
     border-top: none;
@@ -80,7 +82,7 @@ height: 100px;
 }
 
 .dropdownList li {
-    padding: 8px ;
+    padding: 8px;
     text-align: left;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -96,8 +98,9 @@ height: 100px;
 
 .navigationButtons {
     display: flex;
+    flex-wrap: wrap; /* Ajusta los botones si no caben en una sola línea */
     align-items: center;
-    border-collapse: collapse;
+    gap: 4px;
 }
 
 .navButton {
@@ -141,18 +144,54 @@ height: 100px;
     align-items: center;
 }
 
-.downloadCell  button{
+.downloadCell button {
     width: 100%;
     background-color: transparent;
     border: none;
     font-size: 16px;
     cursor: pointer;
     color: #2e93ff;
-
 }
 
-.downloadCell{
+.downloadCell {
     display: flex;
     margin: auto;
     justify-content: center;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 12px; /* Reduce el tamaño de fuente en pantallas pequeñas */
+        padding: 6px; /* Ajusta el padding para ahorrar espacio */
+    }
+
+    .tableContainer {
+        overflow-x: auto; /* Asegura que la tabla tenga scroll horizontal en pantallas pequeñas */
+    }
+
+    .pagination {
+        flex-direction: column; /* Ajusta la paginación a una columna */
+        gap: 12px;
+    }
+
+    .customDropdown {
+        font-size: 12px; /* Reduce el tamaño del dropdown */
+        padding: 4px 12px;
+    }
+
+    .navButton {
+        font-size: 12px; /* Reduce el tamaño de los botones de navegación */
+        padding: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .table th, .table td {
+        font-size: 10px; /* Aún más pequeño en pantallas muy reducidas */
+    }
+
+    .pagination {
+        align-items: flex-start; /* Alinea la paginación a la izquierda */
+    }
 }
