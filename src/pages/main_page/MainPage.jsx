@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redirección
+import { useAuth } from '../../contexts/AuthContext' // Importa el contexto de autenticación
 import SearchBar from '../../components/search/SearchBar';
 import MenuList from '../../components/MenuList/MenuList';
 import styles from './MainPage.module.css';
@@ -21,7 +23,12 @@ import SolicitudPrestamoRegisterForm from './components/RegisterForms/SolicitudP
 import EquiposRegisterForm from './components/RegisterForms/Equipos';
 import DropAlert from '../../components/dropAlert/DropAlert';
 
+import { MdLogout } from "react-icons/md";
+
 export default function MainPage() {
+  const { logout } = useAuth(); // Obtén la función logout del contexto
+  const navigate = useNavigate(); // Hook para redirección
+
   const [data, setData] = useState(getLoadingState([]));
   const [filteredData, setFilteredData] = useState(data);
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,6 +42,11 @@ export default function MainPage() {
   const [isModalTableOpen, setIsModalTableOpen] = useState(false);
   const openTableModal = () => setIsModalTableOpen(true);
   const closeTableModal = () => setIsModalTableOpen(false);
+
+  const handleLogout = () => {
+    logout(); // Llama a la función logout para limpiar la sesión
+    navigate('/login'); // Redirige al login
+  };
 
   const fetchData = async (menuIndex = 0) => {
     const requestMap = {
@@ -59,12 +71,10 @@ export default function MainPage() {
     }
   };
 
-  // useEffect que se ejecuta solo una vez cuando se monta el componente
   useEffect(() => {
     fetchData(0); // Llamada a la API al montar el componente
   }, []);
 
-  // useEffect que se ejecuta cuando el término de búsqueda cambia o los datos cambian
   useEffect(() => {
     const filtered = data.filter(item => {
       return Object.values(item).some(value =>
@@ -143,6 +153,7 @@ export default function MainPage() {
       </Modal>
 
       <nav className={styles.nav}>
+        <MdLogout className={styles.MdLogout} size={24} onClick={handleLogout} /> {/* Agrega el evento de clic */}
         <SearchBar
           placeholder="Buscar persona..."
           value={searchTerm}

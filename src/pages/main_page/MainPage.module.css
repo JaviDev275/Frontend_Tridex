@@ -16,7 +16,15 @@
     width: 100%;
     align-items: center;
     gap: 32px;
+
+    
 }
+
+    .MdLogout {
+        position: relative;
+        cursor: pointer;
+        color: #838383;
+    }
 
 .table {
     background-color: white;
